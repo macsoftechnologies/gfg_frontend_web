@@ -1,0 +1,58 @@
+.breadcrumbright{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.rounded-circle{
+    width: 150px; 
+    height: 150px;
+}
+.detailsCard{
+    height: 100% !important;
+}
+.profileImagesectionclass{
+    height: 100% !important;
+}
+.switchButtonClass{
+    margin-left: 10px;
+    padding: 7px !important;
+}
+.licenseclass{
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.switchAnchorClass{
+    text-decoration: none !important;
+    color: black !important;
+}
+.switchLabelClass{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.switchLabelHeading{
+    margin-bottom: 0px !important;
+}
+.imageswitchinput{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.shopImageTextclass{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100% !important;
+}
+.labelClass{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.editimageinput{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

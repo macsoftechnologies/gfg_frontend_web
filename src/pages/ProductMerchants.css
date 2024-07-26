@@ -1,0 +1,37 @@
+.product-details{
+    text-align: start !important;
+}
+.mapselector{
+    margin-bottom: 30px;
+    display: flex;
+    /* text-align: end; */
+    align-items: center;
+    justify-content: center;
+}
+.mappointer{
+    font-size: 30px;
+    color: orange;
+    cursor: pointer;
+}
+.locationText{
+    font-size: 18px;
+    font-weight: 500;
+}
+.mapText{
+    margin-bottom: 0px;
+    margin-right: 10px;
+    font-size: 18px;
+    font-weight: 500;
+}
+.productPrice{
+    color: green;
+    font-size: 20px;
+    font-weight: 700;
+}
+.merchantsTableheading{
+    color: aliceblue !important;
+    background-color: #00234D !important;
+}
+.locationTextSpan{
+    color: orange !important;
+}

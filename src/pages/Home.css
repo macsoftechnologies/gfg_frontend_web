@@ -1,0 +1,113 @@
+.slick-prev, .slick-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: block;
+    width: 30px;
+    height: 30px;
+    /* background: rgba(0, 0, 0, 0.5); */
+    color: rgb(255, 255, 255);
+    border-radius: 50%;
+    z-index: 2;
+    cursor: pointer;
+  }
+
+  .testimonial-inner{
+    text-align: start;
+  }
+  
+  .testimonial-inner .slick-prev, .testimonial-inner .slick-next {
+    top: 28%;
+  }
+
+  .slick-prev {
+    left: 10px;
+  }
+  
+  .slick-next {
+    right: 10px;
+  }
+  .content-box{
+    text-align: start;
+  }
+
+  .slick-next:before {
+    content: '→';
+  }
+
+  .slick-prev:before, .slick-next:before {
+    font-family: 'slick';
+    font-size: 20px;
+    line-height: 0;
+    opacity: .75;
+    color: #2a2dd8;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.home-footer-logo{
+  text-decoration: none;
+    color: #00234D;
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: 3px;
+}
+
+.home-footer-logo:hover{
+  color: #00234D !important;
+}
+.linksClass{
+  text-decoration: none !important;
+  color: #000 !important;
+}
+
+/* new changes */
+.categoryParent{
+  position: relative;
+}
+.categoryImageClass{
+  width: 100%;
+  height: 200px;
+}
+.categoryParent:hover::before{
+  background-color: rgba(194, 194, 194, 0.61);
+}
+.categoryParent::before{
+  content: "";
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: all .5s ease-out;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.categoryNameClass{
+  position: absolute;
+  top: 0;
+  font-size: 30px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  text-transform: capitalize;
+  font-weight: 600;
+}
+/* .slidersDiv{
+  position: sticky;
+  z-index: 1;
+  top: 5%;
+  right: 10%;
+  width: 100%;
+  height: fit-content;
+} */
+.advertisementImageClass{
+  width: 100%;
+  height: 210px;
+}
+/* .slidersParentDiv{
+  position: relative;
+} */

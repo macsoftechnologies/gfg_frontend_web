@@ -1,0 +1,12 @@
+.gfgfooter{
+    color: white;
+    text-decoration: none;
+    letter-spacing: 2px;
+}
+.gfgfooter:hover{
+    color: white;
+}
+.linksClass{
+    text-decoration: none !important;
+    color: #000 !important;
+}

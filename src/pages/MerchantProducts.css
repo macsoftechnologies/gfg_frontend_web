@@ -1,0 +1,42 @@
+.merchantProdsTable{
+    overflow-y: scroll;
+}
+.productEditSpecHeading{
+    text-align: start !important;
+}
+.productEditSpecul{
+    text-align: center !important;
+}
+.productSpecificationLiEdit{
+    list-style: none;
+    text-align: center;
+}
+.editPriceLable{
+    margin-right: 10px !important;
+}
+.editPriceInput {
+    border: none;
+    border-bottom: 1px solid transparent; /* Initial state without border */
+    color: black;
+    font-weight: 600;
+    outline: none;
+}
+
+.editPriceInput:focus-visible,
+.editPriceInput:focus-within,
+.editPriceInput:visited,
+.editPriceInput:focus,
+.editPriceInput:target,
+.editPriceInput:hover {
+    border: none;
+    border-bottom: 1px solid black; /* Border at the bottom when focused */
+    color: black;
+    font-weight: 600;
+    outline: none;
+}
+
+.merchantprodsBreadcrumb{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
