@@ -14,6 +14,7 @@
 .profileIconText{
     margin-bottom: 0px !important;
     margin-right: 5px !important;
+    color: #fff!important;
 }
 .profileSvgIcon{
     color: white;
@@ -42,7 +43,7 @@
 }
 .headersearchicon{
     position: absolute;
-    right: 10%;
+    right: 4%;
     top: 30%;
 }
 
@@ -68,3 +69,16 @@
     padding: 8px 3px 8px 8px;
     border-top-left-radius: 10px;
 }
+
+.sticky-header{
+    padding: 15px 0px!important;
+}
+
+@media only screen and (max-width: 468px) and (min-width: 360px) {
+    .sticky-header{
+        padding: 0px!important;
+    }
+    .header-marg{
+        padding: 10px 0px!important;
+    }
+  }

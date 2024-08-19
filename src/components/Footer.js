@@ -4,33 +4,18 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <footer className="mt-100 overflow-hidden">
+    <footer className="footer-sec overflow-hidden">
       <div className="footer-top bg-4">
         <div className="container">
           <div className="footer-widget-wrapper">
             <div className="row justify-content-between">
               <div className="col-xl-2 col-lg-2 col-md-6 col-12 footer-widget">
                 <div className="footer-widget-inner">
-                  <h4 className="footer-heading d-flex align-items-center justify-content-between">
+                  <h4 className="footer-heading">
                     <span>About</span>
-                    <span className="d-md-none">
-                      <svg
-                        className="icon icon-dropdown"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#fff"
-                        strokeWidth="1"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                      </svg>
-                    </span>
+                    
                   </h4>
-                  <ul className="footer-menu list-unstyled mb-0 d-md-block">
+                  <ul className="footer-ul">
                     <li className="footer-menu-item">
                       <Link className="linkClass" to={"/aboutus"}>
                         Press center
@@ -61,26 +46,10 @@ function Footer() {
               </div>
               <div className="col-xl-2 col-lg-2 col-md-6 col-12 footer-widget">
                 <div className="footer-widget-inner">
-                  <h4 className="footer-heading d-flex align-items-center justify-content-between">
+                  <h4 className="footer-heading">
                     <span>Shopping</span>
-                    <span className="d-md-none">
-                      <svg
-                        className="icon icon-dropdown"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#fff"
-                        strokeWidth="1"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                      </svg>
-                    </span>
                   </h4>
-                  <ul className="footer-menu list-unstyled mb-0 d-md-block">
+                  <ul className="footer-ul">
                     <li className="footer-menu-item">
                       <Link className="linkClass" to={"/aboutus"}>
                       Brand catalog
@@ -111,26 +80,10 @@ function Footer() {
               </div>
               <div className="col-xl-2 col-lg-2 col-md-6 col-12 footer-widget">
                 <div className="footer-widget-inner">
-                  <h4 className="footer-heading d-flex align-items-center justify-content-between">
+                  <h4 className="footer-heading">
                     <span>Help</span>
-                    <span className="d-md-none">
-                      <svg
-                        className="icon icon-dropdown"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#fff"
-                        strokeWidth="1"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                      </svg>
-                    </span>
                   </h4>
-                  <ul className="footer-menu list-unstyled mb-0 d-md-block">
+                  <ul className="footer-ul">
                     <li className="footer-menu-item">
                       <Link className="linkClass" to={"/#"}>
                         FAQ
@@ -156,7 +109,7 @@ function Footer() {
               </div>
               <div className="col-xl-4 col-lg-5 col-md-6 col-12 footer-widget">
                 <div className="footer-widget-inner">
-                  <h4 className="footer-logo">
+                  <h4 className="footer-logo footer-heading">
                     <Link className="linkClass gfgfooter" to={"/"}>
                       GFG
                     </Link>
@@ -185,7 +138,7 @@ function Footer() {
                       </form>
                     </div>
                     <div className="footer-social-wrapper">
-                      <ul className="footer-social list-unstyled d-flex align-items-center flex-wrap mb-0">
+                      <ul className="footer-social list-unstyled d-flex align-items-center flex-wrap mb-0 justify-content-center">
                         <li className="footer-social-item">
                           <Link className="linkClass" to={"/#"}>
                             {" "}
@@ -310,7 +263,7 @@ function Footer() {
               </li>
             </ul>
             <p className="copyright footer-text">
-              ©<span className="current-year"></span> Spree Themes.
+              ©<span className="current-year"></span> Macsof Technologies.
             </p>
           </div>
         </div>

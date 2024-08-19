@@ -1,3 +1,6 @@
+.footer-sec{
+    margin-top: 65px;
+}
 .gfgfooter{
     color: white;
     text-decoration: none;
@@ -9,4 +12,16 @@
 .linksClass{
     text-decoration: none !important;
     color: #000 !important;
+}
+
+.footer-heading{
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 5px;
+}
+
+.footer-ul .footer-menu-item{
+    text-align: left;
+    list-style-type: none;
 }

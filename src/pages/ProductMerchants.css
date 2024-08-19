@@ -35,3 +35,15 @@
 .locationTextSpan{
     color: orange !important;
 }
+
+@media only screen and (max-width: 468px) and (min-width: 360px) {
+    .location-mar{
+        margin-top: 25px!important;
+    }
+    .merchantProdsTable{
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+  }
+

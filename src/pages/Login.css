@@ -1,0 +1,11 @@
+.login-page{
+    margin-top: 50px;
+}
+.section-heading{
+    text-transform: uppercase;
+    letter-spacing: 5px;
+}
+.label-heading{
+    /* text-align: left!important; */
+    display: flex;
+}

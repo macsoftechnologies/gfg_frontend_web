@@ -130,10 +130,10 @@ function ProductMerchants() {
           <div className="product-page mt-100">
             <div className="container">
               <div className="row">
-                <div className="col-lg-6 col-md-12 col-12 locationText">
+                <div className="col-lg-6 col-md-6 col-12 locationText">
                   <span className="locationTextSpan">Location</span> : {`${localStorage.getItem("Address")}`}
                 </div>
-                <div className="col-lg-4 col-md-10 col-10 mapselector" onClick={toggleModal}>
+                <div className="col-lg-4 col-md-4 col-6 mapselector location-mar" onClick={toggleModal}>
                   <p className="mapText">Change Location Here</p>
                   <i
                     className="fa fa-map-marker mappointer"
@@ -143,7 +143,7 @@ function ProductMerchants() {
                   ></i>
                 </div>
                 {isMerchant && (
-                  <div className="col-lg-2 col-md-2 col-2">
+                  <div className="col-lg-2 col-md-2 col-6 location-mar">
                     <Link to={'/merchantproducts'}><button className="btn btn-primary">My Products</button></Link>
                   </div>
                 )}
@@ -151,7 +151,7 @@ function ProductMerchants() {
                   <div className="container">
                     <h3>List of Products</h3>
                     <div className="row mt-3">
-                      <table className="table table-striped merchantProdsTable">
+                      <table className="table table-striped merchantProdsTable ">
                         <thead>
                           <tr>
                             <th className="merchantsTableheading" scope="col">

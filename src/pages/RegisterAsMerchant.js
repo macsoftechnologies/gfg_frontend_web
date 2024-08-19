@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { addMerchant } from "../services/service";
 import { Link, useNavigate } from "react-router-dom";
+import "./RegisterAsMerchant.css";
 
 function RegisterAsMerchant() {
   const [profileImage, setProfileImage] = useState(null);
@@ -43,7 +44,7 @@ function RegisterAsMerchant() {
       }));
     }
   };
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData((prevState) => ({
@@ -84,7 +85,7 @@ function RegisterAsMerchant() {
 
       if (response && (response.data.statusCode === 200 || response.data.statusCode === 201)) {
         toast.success(`${response.data.message}`, {
-          onClose: () => navigate('/login') 
+          onClose: () => navigate('/login')
         });
       } else {
         toast.error(`Error: ${response.data.message}`);
@@ -150,110 +151,114 @@ function RegisterAsMerchant() {
       <main id="MainContent" className="content-for-layout">
         <div className="login-page mt-100">
           <div className="container">
-            <form action="#" className="login-form common-form mx-auto" onSubmit={handleSubmit}>
+            <form action="#" className="login-form mx-auto" onSubmit={handleSubmit}>
               <div className="section-header mb-3">
                 <h2 className="section-heading customerreghead text-center">
                   Register As Merchant
                 </h2>
               </div>
               <div className="row">
-                <div className="col-md-6">
-                  <div className="row">
-                    <div className="col-12">
-                      <fieldset>
-                        <label className="label">User Name</label>
-                        <input
-                          type="text"
-                          name="userName"
-                          id="userName"
-                          value={data.userName}
-                          onChange={handleChange}
-                        />
-                      </fieldset>
-                    </div>
-                    <div className="col-12">
-                      <fieldset>
-                        <label className="label">Mobile Number</label>
-                        <input
-                          type="text"
-                          name="mobileNumber"
-                          id="mobileNumber"
-                          value={data.mobileNumber}
-                          onChange={handleChange}
-                        />
-                      </fieldset>
-                    </div>
-                    <div className="col-12 mb-4">
-                      <fieldset>
-                        <label className="label">Address</label>
-                        <input
-                          type="text"
-                          name="address"
-                          id="address"
-                          value={data.address}
-                          onChange={handleChange}
-                        />
-                      </fieldset>
-                    </div>
-                  </div>
+
+                <div className="col-md-6 col-12 form-group">
+                  <fieldset>
+                    <label className="label label-heading mb-2">User Name</label>
+                    <input
+                      type="text"
+                      name="userName"
+                      id="userName"
+                      className="form-control mb-2"
+                      value={data.userName}
+                      onChange={handleChange}
+                    />
+                  </fieldset>
                 </div>
-                <div className="col-md-6">
-                  <div className="col-12">
-                    <fieldset>
-                      <label className="label">Shop Name</label>
-                      <input
-                        type="text"
-                        name="shopName"
-                        id="shopName"
-                        value={data.shopName}
-                        onChange={handleChange}
-                      />
-                    </fieldset>
-                  </div>
-                  <div className="col-md-12">
-                    <div className="row">
-                      <div className="col-6">
-                        <fieldset>
-                          <label className="label">Profile Image</label>
-                          <input
-                            type="file"
-                            onChange={(e) => {
-                              handleImageChange(e, setProfileImage, "profileImage");
-                            }}
-                          />
-                        </fieldset>
-                      </div>
-                      <div className="col-6">
-                        {profileImage && (
-                          <img
-                            src={profileImage}
-                            alt="Profile"
-                            className="img-preview mt-2"
-                          />
-                        )}
-                      </div>
-                      <div className="col-6">
-                        <fieldset>
-                          <label className="label">Shop Image</label>
-                          <input
-                            type="file"
-                            onChange={(e) => {
-                              handleImageChange(e, setShopImage, "shopImage");
-                            }}
-                          />
-                        </fieldset>
-                      </div>
-                      <div className="col-6">
-                        {shopImage && (
-                          <img
-                            src={shopImage}
-                            alt="Shop"
-                            className="img-preview mt-2"
-                          />
-                        )}
-                      </div>
-                    </div>
-                  </div>
+
+                <div className="col-md-6 col-12 form-group">
+                  <fieldset>
+                    <label className="label label-heading mb-2">Shop Name</label>
+                    <input
+                      type="text"
+                      name="shopName"
+                      id="shopName"
+                      className="form-control mb-2"
+                      value={data.shopName}
+                      onChange={handleChange}
+                    />
+                  </fieldset>
+                </div>
+
+                <div className="col-md-6 col-12 form-group">
+                  <fieldset>
+                    <label className="label label-heading mb-2">Mobile Number</label>
+                    <input
+                      type="text"
+                      name="mobileNumber"
+                      id="mobileNumber"
+                      className="form-control mb-2"
+                      value={data.mobileNumber}
+                      onChange={handleChange}
+                    />
+                  </fieldset>
+                </div>
+
+                <div className="col-md-6 col-12 form-group">
+                  <fieldset>
+                    <label className="label label-heading mb-2">Address</label>
+                    <input
+                      type="text"
+                      name="address"
+                      id="address"
+                      className="form-control mb-2"
+                      value={data.address}
+                      onChange={handleChange}
+                    />
+                  </fieldset>
+                </div>
+
+
+                <div className="col-md-6 col-6 form-group">
+                  <fieldset>
+                    <label className="label label-heading mb-2">Profile Image</label>
+                    <input
+                      type="file"
+                      className="form-control mb-2"
+                      onChange={(e) => {
+                        handleImageChange(e, setProfileImage, "profileImage");
+                      }}
+                    />
+                  </fieldset>
+                </div>
+
+                <div className="col-md-6 col-6 form-group">
+                  <fieldset>
+                    <label className="label label-heading mb-2">Shop Image</label>
+                    <input
+                      type="file"
+                      className="form-control mb-2"
+                      onChange={(e) => {
+                        handleImageChange(e, setShopImage, "shopImage");
+                      }}
+                    />
+                  </fieldset>
+                </div>
+                <div className="col-md-6 col-6 form-group mb-5">
+                  {profileImage && (
+                    <img
+                      src={profileImage}
+                      alt="Profile"
+                      className="img-preview mt-2"
+                      
+                    />
+                  )}
+                </div>
+                <div className="col-md-6 col-6 form-group mb-5">
+                  {shopImage && (
+                    <img
+                      src={shopImage}
+                      alt="Shop"
+                      className="img-preview mt-2"
+                    />
+                  )}
                 </div>
                 <MapComponent
                   initialPosition={[data.latitude, data.longitude]}

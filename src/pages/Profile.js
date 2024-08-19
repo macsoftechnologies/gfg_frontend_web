@@ -301,7 +301,7 @@ function Profile() {
                       <div className="row">
                         <div className="col-md-2 mb-2 labelClass">
                           <div>Name</div>
-                          <div>:</div>
+                          
                         </div>
                         <div className="col-md-10 mb-2">
                           <input
@@ -315,7 +315,7 @@ function Profile() {
                         </div>
                         <div className="col-md-2 mb-2 labelClass">
                           <div>Mobile</div>
-                          <div>:</div>
+                          
                         </div>
                         <div className="col-md-10 mb-2">
                           <input
@@ -329,7 +329,7 @@ function Profile() {
                         </div>
                         <div className="col-md-2 mb-2 labelClass">
                           <div>Profile Image</div>
-                          <div>:</div>
+                          
                         </div>
                         <div className="col-md-5 mb-2 editimageinput">
                           <input
@@ -361,7 +361,7 @@ function Profile() {
                         </div>
                         <div className="col-md-2 mb-2 labelClass">
                           <div>Address</div>
-                          <div>:</div>
+                         
                         </div>
                         <div className="col-md-10 mb-2">
                           <input
@@ -381,7 +381,7 @@ function Profile() {
                           <>
                             <div className="col-md-2 mb-2 labelClass">
                               <div>Shop Name</div>
-                              <div>:</div>
+                              
                             </div>
                             <div className="col-md-10 mb-2">
                               <input
@@ -395,7 +395,7 @@ function Profile() {
                             </div>
                             <div className="col-md-2 mb-2 labelClass">
                               <div>Shop Image</div>
-                              <div>:</div>
+                              
                             </div>
                             <div className="col-md-5 mb-2 editimageinput">
                               <input

@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { loginUser } from "../services/service";
 import { Link, useNavigate } from "react-router-dom";
+import "./Login.css";
 
 function Login() {
     const navigate = useNavigate();
@@ -73,40 +74,42 @@ function Login() {
       {/* <!-- breadcrumb end --> */}
 
       <main id="MainContent" className="content-for-layout">
-        <div className="login-page mt-100">
+        <div className="login-page">
           <div className="container">
-            <form className="login-form common-form mx-auto" onSubmit={handleSubmit}>
+            <form className="login-form mx-auto" onSubmit={handleSubmit}>
               <div className="section-header mb-3">
-                <h2 className="section-heading customerreghead text-center">
+                <h2 className="section-heading customerreghead text-center ">
                   Login
                 </h2>
               </div>
               <div className="row">
-                <div className="col-12">
+                <div className="col-12 form-group">
                   <fieldset>
-                    <label className="label">Mobile Number</label>
+                    <label className="label label-heading mb-3">Mobile Number</label>
                     <input
                       type="text"
                       name="mobileNumber"
                       id="mobileNumber"
+                      className="form-control mb-3"
                       value={data.mobileNumber}
                       onChange={handleChange}
                     />
                   </fieldset>
                 </div>
-                <div className="col-12">
+                <div className="col-12 form-group">
                   <fieldset>
-                    <label className="label">OTP</label>
+                    <label className="label label-heading mb-3">OTP</label>
                     <input
                       type="password"
                       name="otp"
                       id="otp"
+                      className="form-control mb-3"
                       value={data.otp}
                       onChange={handleChange}
                     />
                   </fieldset>
                 </div>
-                <div className="col-12 mt-3">
+                <div className="col-12">
                   {/* <a href="#" className="text_14 d-block">
                     Forgot your password?
                   </a> */}

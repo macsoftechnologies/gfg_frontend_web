@@ -148,7 +148,7 @@ function RegisterAsCustomer() {
           <div className="container">
             <form
               action="#"
-              className="login-form common-form mx-auto"
+              className="login-form mx-auto"
               onSubmit={handleSubmit}
             >
               <div className="section-header mb-3">
@@ -157,63 +157,70 @@ function RegisterAsCustomer() {
                 </h2>
               </div>
               <div className="row">
-                <div className="col-6">
+                <div className="col-md-6 col-12 form-group mb-2">
                   <fieldset>
-                    <label className="label">User Name</label>
+                    <label className="label label-heading mb-2">User Name</label>
                     <input
                       type="text"
                       name="userName"
                       id="userName"
+                      className="form-control mb-2"
                       value={data.userName}
                       onChange={handleChange}
                     />
                   </fieldset>
                 </div>
-                <div className="col-6">
+                <div className="col-md-6 col-12 form-group mb-2">
                   <fieldset>
-                    <label className="label">Mobile Number</label>
+                    <label className="label label-heading mb-2">Mobile Number</label>
                     <input
                       type="text"
                       name="mobileNumber"
                       id="mobileNumber"
+                       className="form-control mb-2"
                       value={data.mobileNumber}
                       onChange={handleChange}
                     />
                   </fieldset>
                 </div>
-                <div className="col-6">
+                <div className="col-md-6 col-12 form-group mb-2">
                   <fieldset>
-                    <label className="label">Profile Image</label>
+                    <label className="label label-heading mb-2">Address</label>
+                    <input
+                      type="text"
+                      name="address"
+                      id="address"
+                      className="form-control mb-2"
+                      value={data.address}
+                      onChange={handleChange}
+                    />
+                  </fieldset>
+                </div>
+                <div className="col-md-6 col-12 form-group mb-2">
+                  <fieldset>
+                    <label className="label label-heading mb-2">Profile Image</label>
                     <input
                       type="file"
+                      className="form-control mb-2"
                       onChange={(e) => {
                         handleImageChange(e, setProfileImage, "profileImage");
                       }}
                     />
                   </fieldset>
                 </div>
+                <div className="col-md-6 col-12 form-group mb-2"></div>
                       
-                <div className="col-6">
+                <div className="col-md-6 col-12 form-group mb-2">
                   {profileImage && (
                     <img
                       src={profileImage}
                       alt="Profile"
-                      className="img-preview mt-2"
+                      
+                      className="form-control mb-2 img-preview mt-2"
                     />
                   )}
                 </div>
-                <div className="col-6 mb-4">
-                  <fieldset>
-                    <label className="label">Address</label>
-                    <input
-                      type="text"
-                      name="address"
-                      id="address"
-                      value={data.address}
-                      onChange={handleChange}
-                    />
-                  </fieldset>
-                </div>
+
                 <div className="col-md-12">
                   <MapComponent
                     initialPosition={[data.latitude, data.longitude]}

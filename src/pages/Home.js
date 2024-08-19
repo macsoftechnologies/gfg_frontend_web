@@ -122,13 +122,13 @@ function Home() {
           <div className="collection-tab-inner">
             <div className="container">
               <div className="row">
-                <div className="col-lg-8 ">
+                <div className="col-lg-8 col-12">
                   <div className="row">
                   <h2 className="section-heading primary-color">Our Products</h2>
                     {filteredCategoryList &&
                       filteredCategoryList.map((category) => (
                         <div
-                          className="col-lg-4 col-md-6 col-6"
+                          className="col-lg-4 col-md-6 col-12"
                           data-aos="fade-up"
                           data-aos-duration="700"
                         >
@@ -152,7 +152,7 @@ function Home() {
                       ))}
                   </div>
                 </div>
-                <div className="col-lg-4">
+                <div className="col-lg-4 col-12">
                   <div className="slidersDiv">
                   {userToken && advertisements.length > 0 && (
                       <Slider {...sliderSettings}>
@@ -162,7 +162,7 @@ function Home() {
                               {group.map((adv, advIndex) => (
                                 <div
                                   key={advIndex}
-                                  className="col-lg-12 col-md-6 col-6"
+                                  className="col-lg-12 col-md-6 col-12 mt-5"
                                   data-aos-duration="700"
                                 >
                                   <div className="product-card mt-0 mb-4">

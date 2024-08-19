@@ -40,3 +40,11 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.merchantprodedit{
+    margin-right: 5px;
+}
+
+.productSpecificationLi{
+    list-style-type: none;
+}
