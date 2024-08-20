@@ -48,3 +48,12 @@
 .productSpecificationLi{
     list-style-type: none;
 }
+
+.price-edit{
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+}
+.productpriceInput{
+    /* width: 35%; */
+}

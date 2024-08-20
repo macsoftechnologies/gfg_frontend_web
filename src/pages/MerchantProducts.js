@@ -409,55 +409,51 @@ function MerchantProducts() {
             <div className="modal-body">
               {editingProduct && (
                 <div>
-                  <div className="d-flex align-items-baseline justify-content-center">
-                    <h6>
-                      Name <span>:</span>
-                    </h6>
-                    <p>{editingProduct?.adminProductId[0]?.productName}</p>
-                  </div>
-                  <div className="d-flex align-items-center justify-content-center">
-                    <h6>
-                      Product Image <span>:</span>
-                    </h6>
-                    <img
+                  <div className="row">
+                    <div className="col-md-6 col-6 mt-3"><label><b>Name :</b></label></div>
+                    <div className="col-md-6 col-6 mt-3"><p>{editingProduct?.adminProductId[0]?.productName}</p></div>
+                    <div className="col-md-6 col-6 mt-3"><b>Product Image <span>:</span></b></div>
+                    <div className="col-md-6 col-6 mt-3"><img
                       src={`https://gfg.org.in/${editingProduct?.adminProductId[0]?.productImage}`}
                       alt={editingProduct?.adminProductId[0]?.productName}
                       width="150"
-                    />
-                  </div>
-                  <div>
-                    <h6 className="productEditSpecHeading">
-                      Product Specifications <span>:</span>
-                    </h6>
-                    <ul>
-                      {editingProduct?.adminProductId[0]?.productSpecifications &&
-                        Object.entries(
-                          editingProduct?.adminProductId[0]?.productSpecifications
-                        ).map((specification, index) => (
-                          <li className="productSpecificationLiEdit">
-                            <strong className="productEditSpecul">
-                              {specification[0]}:
-                            </strong>{" "}
-                            {specification[1]}
-                          </li>
-                        ))}
-                    </ul>
+                    /></div>
+
+                    <div className="col-md-6 col-6 mt-3"><b>Product Specifications <span>:</span></b></div>
+                    <div className="col-md-6 col-6 mt-3">
+                      <ul>
+                        {editingProduct?.adminProductId[0]?.productSpecifications &&
+                          Object.entries(
+                            editingProduct?.adminProductId[0]?.productSpecifications
+                          ).map((specification, index) => (
+                            <li className="productSpecificationLiEdit">
+                              <strong className="productEditSpecul">
+                                {specification[0]}:
+                              </strong>{" "}
+                              {specification[1]}
+                            </li>
+                          ))}
+                      </ul>
+                    </div>
                   </div>
                 </div>
               )}
-              <div className="d-flex align-items-baseline justify-content-center">
-                <h6 className="editPriceLable">Product Price :</h6>
-                <i className="fa fa-inr" aria-hidden="true"></i>
-                <input
-                  type="text"
-                  placeholder="please enter price"
-                  className="editPriceInput"
-                  id="price"
-                  name="price"
-                  value={data.price}
-                  onChange={handleChange}
-                />
+              <div className="row">
+                <div className="col-md-6 col-6 mt-3"><b>Product Price :</b></div>
+                <div className="col-md-6 col-6 mt-3 price-edit">
+                  <i className="fa fa-inr" aria-hidden="true"></i>
+                  <input
+                    type="text"
+                    placeholder="please enter price"
+                    className="editPriceInput"
+                    id="price"
+                    name="price"
+                    value={data.price}
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
+
             </div>
             <div className="modal-footer">
               <button
@@ -554,7 +550,7 @@ function MerchantProducts() {
                     role="button"
                     aria-expanded="false"
                     aria-controls="collapseExample"
-                    onClick={()=>showCollapse()}
+                    onClick={() => showCollapse()}
                   >
                     Select Product
                   </a>
@@ -595,57 +591,69 @@ function MerchantProducts() {
                   </div>
                 </div>
               </div>
-              <div className="mb-3 d-flex align-items-center justify-content-space-around">
-                <label
-                  for="productFormInput1"
-                  className="form-label productFormInput1"
-                >
-                  Selected Product Image :
-                </label>
-                <img
-                  style={{width: "200px", height: "180px"}}
-                  className="selectedImage"
-                  src={`https://gfg.org.in/${selectedProduct.productImage}`}
-                />
-              </div>
-              <div className="mb-3 d-flex align-items-center justify-content-space-around">
-                <label
-                  for="productFormInput1"
-                  className="form-label productFormInput1"
-                >
-                  Selcted Product Name :
-                </label>
-                <p className="mb-0">{selectedProduct.productName}</p>
-              </div>
-              <div className="mb-3 d-flex">
-                <label>ProductSpecifications :</label>
-                <ul>
-                  {selectedProduct.productSpecifications &&
-                    Object.entries(selectedProduct.productSpecifications).map(
-                      (specification, index) => (
-                        <li>
-                          <strong>{specification[0]}:</strong>{" "}
-                          {specification[1]}
-                        </li>
-                      )
-                    )}
-                </ul>
-              </div>
-              <div className="mb-3 d-flex align-items-center justify-content-space-around">
-                <label for="price" className="form-label productFormInput1">
+
+              <div className="row">
+                <div className="col-md-6 col-6 mt-3">
+                  <label
+                    for="productFormInput1"
+                    className="form-label productFormInput1"
+                  >
+                    <b> Selected Product Image :</b>
+                  </label>
+                </div>
+                <div className="col-md-6 col-6 mt-3">
+                  <img
+                    style={{ width: "150px", height: "150px" }}
+                    className="selectedImage"
+                    src={`https://gfg.org.in/${selectedProduct.productImage}`}
+                  />
+                </div>
+                <div className="col-md-6 col-7 mt-3">
+                  <b>  <label
+                    for="productFormInput1"
+                    className="form-label productFormInput1"
+                  >
+                    Selcted Product Name :
+                  </label></b>
+                </div>
+                <div className="col-md-6 col-5 mt-3">
+                  <p className="mb-0">{selectedProduct.productName}</p>
+                </div>
+                <div className="col-md-6 col-6 mt-3">
+                  <label><b>ProductSpecifications :</b></label>
+                </div>
+                <div className="col-md-6 col-6 mt-3">
+                  <ul>
+                    {selectedProduct.productSpecifications &&
+                      Object.entries(selectedProduct.productSpecifications).map(
+                        (specification, index) => (
+                          <li>
+                            <strong>{specification[0]}:</strong>{" "}
+                            {specification[1]}
+                          </li>
+                        )
+                      )}
+                  </ul>
+                </div>
+                <div className="col-md-6 col-6 mt-3"><b><label for="price" className="form-label productFormInput1">
                   Price :
-                </label>
-                <i className="fa fa-inr" aria-hidden="true"></i>
-                <input
-                  type="text"
-                  className="productpriceInput"
-                  id="price"
-                  name="price"
-                  placeholder="enter your product price"
-                  value={addData.price}
-                  onChange={handleChange}
-                />
+                </label></b></div>
+                <div className="col-md-6 form-group price-edit col-6 mt-3">
+                  <i className="fa fa-inr " aria-hidden="true"></i>
+                  <input
+                    type="text"
+                    className="productpriceInput form-control"
+                    id="price"
+                    name="price"
+                    placeholder="enter your product price"
+                    value={addData.price}
+                    onChange={handleChange}
+                    
+                  />
+                </div>
+
               </div>
+
             </div>
             <div className="modal-footer">
               <button

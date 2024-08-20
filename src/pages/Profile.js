@@ -148,7 +148,7 @@ function Profile() {
       <Header onSearch={handleSearch} />
       <section>
         <div className="container">
-          <div className="main-body">
+          <div className="main-body mt-3">
             <nav
               aria-label="breadcrumb"
               className="main-breadcrumb breadcrumbright"
@@ -159,8 +159,8 @@ function Profile() {
                     Home
                   </Link>
                 </li>
-                <li className="breadcrumb-item active" aria-current="page">
-                  User Profile
+                <li className="" aria-current="page">
+                  <span>&nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i>&nbsp;</span>User Profile
                 </li>
               </ol>
               <div className="row">
@@ -186,7 +186,7 @@ function Profile() {
               </div>
             </nav>
 
-            <div className="row gutters-sm">
+            <div className="row gutters-sm mt-5">
               <div className="col-md-4">
                 <div className="card profileImagesectionclass">
                   <div className="card-body">
