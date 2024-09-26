@@ -9,10 +9,15 @@
 }
 .productSpecificationLiEdit{
     list-style: none;
-    text-align: center;
+    /* text-align: center; */
 }
 .editPriceLable{
     margin-right: 10px !important;
+}
+.merchantproductsaccordbody{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 .editPriceInput {
     border: none;
@@ -54,6 +59,36 @@
     align-items: baseline;
     justify-content: center;
 }
+.addProductsClass:hover{
+    background-color: #e65f3a;
+}
+
+.merchantProductsHeading {
+    margin-top: 40px;
+    letter-spacing: 2px !important;
+    margin-bottom: 40px;
+  }
+  
+  .merchantProductsHeading span {
+    color: #e65f3a;
+  }
+  
+  .merchantProductsHeading::after {
+    content: "";
+    border-top: 3px solid #063263;
+    display: block;
+    width: 2em;
+    margin: auto;
+  }
 .productpriceInput{
-    /* width: 35%; */
+    margin-left: 5px !important;
+}
+.selectedProductName{
+    text-transform: capitalize;
+}
+.dropdownButton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }

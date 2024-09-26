@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Profile.css";
 import { ToastContainer, toast } from "react-toastify";
 import MapComponent from "../components/MapComponent";
+import $ from "jquery";
+import { Button, Modal } from "reactstrap";
 
 function Profile() {
   const [userDetails, setUserDetails] = useState({});
@@ -15,6 +17,11 @@ function Profile() {
   const [imagePreview1, setImagePreview1] = useState(null);
   const [imagePreview2, setImagePreview2] = useState(null);
   const [editData, setEditData] = useState({});
+  const [isModeltrue, setisModeltrue] = useState(false);
+
+  const toggleModal = () => {
+    setisModeltrue(!isModeltrue);
+  };
 
   const handleFileChange = (e) => {
     const { name, files } = e.target;
@@ -121,7 +128,8 @@ function Profile() {
         response.statusCode === 201
       ) {
         toast.success(`Success: ${response.message}`);
-        window.location.reload();
+        getUserDetails();
+        toggleModal();
       } else {
         toast.error(`Error: ${response.message}`);
       }
@@ -140,7 +148,7 @@ function Profile() {
 
   const handleSearch = () => {
     return null;
-  }
+  };
 
   return (
     <div>
@@ -155,20 +163,21 @@ function Profile() {
             >
               <ol className="breadcrumb">
                 <li className="breadcrumb-item">
-                  <Link to={"/"}>
-                    Home
-                  </Link>
+                  <Link to={"/"}>Home</Link>
                 </li>
-                <li className="" aria-current="page">
-                  <span>&nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i>&nbsp;</span>User Profile
+                <li className="breadcrumb-item active" aria-current="page">
+                  {/* <span>
+                    &nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i>
+                    &nbsp;
+                  </span> */}
+                  User Profile
                 </li>
               </ol>
               <div className="row">
                 <div className="col-sm-12">
                   <button
                     className="btn btn-info"
-                    data-bs-toggle="modal"
-                    data-bs-target="#editUserModal"
+                    onClick={toggleModal}
                   >
                     Edit
                   </button>
@@ -177,7 +186,10 @@ function Profile() {
                       type="button"
                       className="btn btn-info switchButtonClass"
                     >
-                      <Link to={"/switchtomerchant"} className="switchAnchorClass">
+                      <Link
+                        to={"/switchtomerchant"}
+                        className="switchAnchorClass"
+                      >
                         Switch As Merchant
                       </Link>
                     </button>
@@ -190,11 +202,11 @@ function Profile() {
               <div className="col-md-4">
                 <div className="card profileImagesectionclass">
                   <div className="card-body">
-                    <div className="d-flex flex-column align-items-center justify-content-center h-100 text-center">
+                    <div className="d-flex flex-column align-items-center justify-content-center text-center">
                       <img
-                        src={`https://gfg.org.in/${userDetails.profileImage}`}
+                        src={`https://api.gfg.org.in/${userDetails.profileImage}`}
                         alt="Admin"
-                        className="userrounded-circle"
+                        className="userrounded-circle profileImage"
                       />
                       <div className="mt-3">
                         <h4>{userDetails.userName}</h4>
@@ -244,7 +256,7 @@ function Profile() {
                           <div className="col-sm-9 text-secondary">
                             {userDetails.shopImage && (
                               <img
-                                src={`https://gfg.org.in/${userDetails.shopImage}`}
+                                src={`https://api.gfg.org.in/${userDetails.shopImage}`}
                                 alt="Shop"
                                 className="shopImageClass"
                               />
@@ -273,193 +285,182 @@ function Profile() {
       </section>
 
       {/* Edit User Modal */}
-      <div
-        className="modal fade"
-        id="editUserModal"
-        tabIndex="-1"
-        aria-labelledby="editUserModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-xl modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="editUserModalLabel">
-                Edit Profile
-              </h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <form onSubmit={editSubmit}>
-              <div className="modal-body">
-                <div className="container">
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="row">
-                        <div className="col-md-2 mb-2 labelClass">
-                          <div>Name</div>
-                          
-                        </div>
-                        <div className="col-md-10 mb-2">
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="editName"
-                            name="userName"
-                            value={editData.userName || ""}
-                            onChange={handleChange}
-                          />
-                        </div>
-                        <div className="col-md-2 mb-2 labelClass">
-                          <div>Mobile</div>
-                          
-                        </div>
-                        <div className="col-md-10 mb-2">
-                          <input
-                            type="tel"
-                            className="form-control"
-                            id="editMobile"
-                            name="mobileNumber"
-                            value={editData.mobileNumber || ""}
-                            onChange={handleChange}
-                          />
-                        </div>
-                        <div className="col-md-2 mb-2 labelClass">
-                          <div>Profile Image</div>
-                          
-                        </div>
-                        <div className="col-md-5 mb-2 editimageinput">
-                          <input
-                            type="file"
-                            className="form-control"
-                            id="editProfileImage"
-                            name="profileImage"
-                            onChange={handleFileChange}
-                          />
-                        </div>
-                        <div className="col-md-5 mb-3">
-                          {imagePreview ? (
-                            <img
-                              src={imagePreview}
-                              alt="Product Preview"
-                              width="100"
-                              style={{ marginTop: "10px" }}
+      <Modal className="modal-xl" isOpen={isModeltrue} toggle={toggleModal}>
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="editUserModalLabel">
+                  Edit Profile
+                </h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                  onClick={toggleModal}
+                ></button>
+              </div>
+              <form onSubmit={editSubmit}>
+                <div className="modal-body">
+                  <div className="container">
+                    <div className="row">
+                      <div className="col-md-6">
+                        <div className="row">
+                          <div className="col-md-2 mb-2 labelClass">
+                            <div>Name</div>
+                          </div>
+                          <div className="col-md-10 mb-2">
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="editName"
+                              name="userName"
+                              value={editData.userName || ""}
+                              onChange={handleChange}
                             />
-                          ) : (
-                            editData.profileImage && (
+                          </div>
+                          <div className="col-md-2 mb-2 labelClass">
+                            <div>Mobile</div>
+                          </div>
+                          <div className="col-md-10 mb-2">
+                            <input
+                              type="tel"
+                              className="form-control"
+                              id="editMobile"
+                              name="mobileNumber"
+                              value={editData.mobileNumber || ""}
+                              onChange={handleChange}
+                            />
+                          </div>
+                          <div className="col-md-2 mb-2 labelClass">
+                            <div>Profile Image</div>
+                          </div>
+                          <div className="col-md-5 mb-2 editimageinput">
+                            <input
+                              type="file"
+                              className="form-control"
+                              id="editProfileImage"
+                              name="profileImage"
+                              onChange={handleFileChange}
+                            />
+                          </div>
+                          <div className="col-md-5 mb-3">
+                            {imagePreview ? (
                               <img
-                                src={`https://gfg.org.in/${editData.profileImage}`}
-                                alt="Current Product"
+                                src={imagePreview}
+                                alt="Product Preview"
                                 width="100"
                                 style={{ marginTop: "10px" }}
                               />
-                            )
-                          )}
-                        </div>
-                        <div className="col-md-2 mb-2 labelClass">
-                          <div>Address</div>
-                         
-                        </div>
-                        <div className="col-md-10 mb-2">
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="editAddress"
-                            name="address"
-                            value={editData.address || ""}
-                            onChange={handleChange}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="row">
-                        {isMerchant && (
-                          <>
-                            <div className="col-md-2 mb-2 labelClass">
-                              <div>Shop Name</div>
-                              
-                            </div>
-                            <div className="col-md-10 mb-2">
-                              <input
-                                type="text"
-                                className="form-control"
-                                id="editShopName"
-                                name="shopName"
-                                value={editData.shopName || ""}
-                                onChange={handleChange}
-                              />
-                            </div>
-                            <div className="col-md-2 mb-2 labelClass">
-                              <div>Shop Image</div>
-                              
-                            </div>
-                            <div className="col-md-5 mb-2 editimageinput">
-                              <input
-                                type="file"
-                                className="form-control"
-                                id="editShopImage"
-                                name="shopImage"
-                                onChange={handleFileChange1}
-                              />
-                            </div>
-                            <div className="col-md-5 mb-3">
-                              {imagePreview1 ? (
+                            ) : (
+                              editData.profileImage && (
                                 <img
-                                  src={imagePreview1}
-                                  alt="Product Preview"
+                                  src={`https://api.gfg.org.in/${editData.profileImage}`}
+                                  alt="Current Product"
                                   width="100"
                                   style={{ marginTop: "10px" }}
                                 />
-                              ) : (
-                                editData.shopImage && (
+                              )
+                            )}
+                          </div>
+                          <div className="col-md-2 mb-2 labelClass">
+                            <div>Address</div>
+                          </div>
+                          <div className="col-md-10 mb-2">
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="editAddress"
+                              name="address"
+                              value={editData.address || ""}
+                              onChange={handleChange}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div className="row">
+                          {isMerchant && (
+                            <>
+                              <div className="col-md-2 mb-2 labelClass">
+                                <div>Shop Name</div>
+                              </div>
+                              <div className="col-md-10 mb-2">
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  id="editShopName"
+                                  name="shopName"
+                                  value={editData.shopName || ""}
+                                  onChange={handleChange}
+                                />
+                              </div>
+                              <div className="col-md-2 mb-2 labelClass">
+                                <div>Shop Image</div>
+                              </div>
+                              <div className="col-md-5 mb-2 editimageinput">
+                                <input
+                                  type="file"
+                                  className="form-control"
+                                  id="editShopImage"
+                                  name="shopImage"
+                                  onChange={handleFileChange1}
+                                />
+                              </div>
+                              <div className="col-md-5 mb-3">
+                                {imagePreview1 ? (
                                   <img
-                                    src={`https://gfg.org.in/${editData.shopImage}`}
-                                    alt="Current Product"
+                                    src={imagePreview1}
+                                    alt="Product Preview"
                                     width="100"
                                     style={{ marginTop: "10px" }}
                                   />
-                                )
-                              )}
-                            </div>
-                          </>
-                        )}
+                                ) : (
+                                  editData.shopImage && (
+                                    <img
+                                      src={`https://api.gfg.org.in/${editData.shopImage}`}
+                                      alt="Current Product"
+                                      width="100"
+                                      style={{ marginTop: "10px" }}
+                                    />
+                                  )
+                                )}
+                              </div>
+                            </>
+                          )}
+                        </div>
                       </div>
+                      {editData && editData.coordinates && (
+                        <div className="col-md-12">
+                          <MapComponent
+                            initialPosition={[
+                              editData.coordinates.coordinates[1],
+                              editData.coordinates.coordinates[0],
+                            ]}
+                            onPositionChange={handlePositionChange}
+                            apiKey="AIzaSyCiUU7Q5X1hTMRAJr0YJZPOxw40FfZcZp0"
+                          />
+                        </div>
+                      )}
                     </div>
-                    {editData && editData.coordinates && (
-                      <div className="col-md-12">
-                        <MapComponent
-                          initialPosition={[
-                            editData.coordinates.coordinates[1],
-                            editData.coordinates.coordinates[0],
-                          ]}
-                          onPositionChange={handlePositionChange}
-                          apiKey="AIzaSyCiUU7Q5X1hTMRAJr0YJZPOxw40FfZcZp0"
-                        />
-                      </div>
-                    )}
                   </div>
                 </div>
-              </div>
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button type="submit" className="btn btn-primary">
-                  Save changes
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+                <div className="modal-footer">
+                  <Button
+                    type="button"
+                    // className="btn btn-secondary"
+                    color="secondary"
+                    data-bs-dismiss="modal"
+                    onClick={toggleModal}
+                  >
+                    Close
+                  </Button>
+                  <button type="submit" className="btn btn-primary">
+                    Save changes
+                  </button>
+                </div>
+              </form>
+            </div>
+      </Modal>
       <Footer />
       <ToastContainer />
     </div>

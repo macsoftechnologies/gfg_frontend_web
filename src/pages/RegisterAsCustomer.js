@@ -91,53 +91,24 @@ function RegisterAsCustomer() {
     }
   };
 
+  
+  const handleSearch = () => {
+    return null;
+  }
+
   return (
     <div>
-      <Header />
+      <Header onSearch={handleSearch} />
       <div className="breadcrumb">
         <div className="container">
           <ul className="list-unstyled d-flex align-items-center m-0">
-            <li>
+            <li className="breadcrumb-item">
               <Link to={'/'}>Home</Link>
             </li>
-            <li>
-              <svg
-                className="icon icon-breadcrumb"
-                width="64"
-                height="64"
-                viewBox="0 0 64 64"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g opacity="0.4">
-                  <path
-                    d="M25.9375 8.5625L23.0625 11.4375L43.625 32L23.0625 52.5625L25.9375 55.4375L47.9375 33.4375L49.3125 32L47.9375 30.5625L25.9375 8.5625Z"
-                    fill="#000"
-                  />
-                </g>
-              </svg>
-            </li>
-            <li>
+            <li className="breadcrumb-item">
               <Link to={'/login'}>Login</Link>
             </li>
-            <li>
-              <svg
-                className="icon icon-breadcrumb"
-                width="64"
-                height="64"
-                viewBox="0 0 64 64"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g opacity="0.4">
-                  <path
-                    d="M25.9375 8.5625L23.0625 11.4375L43.625 32L23.0625 52.5625L25.9375 55.4375L47.9375 33.4375L49.3125 32L47.9375 30.5625L25.9375 8.5625Z"
-                    fill="#000"
-                  />
-                </g>
-              </svg>
-            </li>
-            <li>Register As Customer</li>
+            <li className="breadcrumb-item active">Register As Customer</li>
           </ul>
         </div>
       </div>
@@ -148,7 +119,7 @@ function RegisterAsCustomer() {
           <div className="container">
             <form
               action="#"
-              className="login-form mx-auto"
+              className="login-form-register mx-auto"
               onSubmit={handleSubmit}
             >
               <div className="section-header mb-3">

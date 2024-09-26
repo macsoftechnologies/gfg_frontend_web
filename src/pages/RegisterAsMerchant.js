@@ -11,7 +11,6 @@ import "./RegisterAsMerchant.css";
 function RegisterAsMerchant() {
   const [profileImage, setProfileImage] = useState(null);
   const [shopImage, setShopImage] = useState(null);
-  const [shopLicense, setShopLicense] = useState(null);
   const navigate = useNavigate();
   const [data, setData] = useState({
     userName: "",
@@ -51,10 +50,6 @@ function RegisterAsMerchant() {
       ...prevState,
       [name]: value,
     }));
-    // setEditUser((prevState) => ({
-    //   ...prevState,
-    //   [name]: value,
-    // }));
   };
 
   const handlePositionChange = (lat, lng, address) => {
@@ -64,12 +59,6 @@ function RegisterAsMerchant() {
       longitude: lng,
       address: address,
     }));
-    // setEditUser((prevState) => ({
-    //   ...prevState,
-    //   latitude: lat,
-    //   longitude: lng,
-    //   address: address,
-    // }));
   };
 
   const handleSubmit = async (e) => {
@@ -79,13 +68,15 @@ function RegisterAsMerchant() {
       Object.entries(data).forEach(([key, value]) => {
         formData.append(key, value);
       });
-      console.log("formData", formData);
-      const response = await addMerchant(formData);
-      console.log("response", response);
 
-      if (response && (response.data.statusCode === 200 || response.data.statusCode === 201)) {
+      const response = await addMerchant(formData);
+
+      if (
+        response &&
+        (response.data.statusCode === 200 || response.data.statusCode === 201)
+      ) {
         toast.success(`${response.data.message}`, {
-          onClose: () => navigate('/login')
+          onClose: () => navigate("/login"),
         });
       } else {
         toast.error(`Error: ${response.data.message}`);
@@ -96,72 +87,46 @@ function RegisterAsMerchant() {
     }
   };
 
+  const handleSearch = () => {
+    return null;
+  };
+
   return (
     <div>
-      <Header />
+      <Header onSearch={handleSearch} />
       <div className="breadcrumb">
         <div className="container">
           <ul className="list-unstyled d-flex align-items-center m-0">
-            <li>
-              <Link to={'/'}>Home</Link>
+            <li className="breadcrumb-item">
+              <Link to={"/"}>Home</Link>
             </li>
-            <li>
-              <svg
-                className="icon icon-breadcrumb"
-                width="64"
-                height="64"
-                viewBox="0 0 64 64"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g opacity="0.4">
-                  <path
-                    d="M25.9375 8.5625L23.0625 11.4375L43.625 32L23.0625 52.5625L25.9375 55.4375L47.9375 33.4375L49.3125 32L47.9375 30.5625L25.9375 8.5625Z"
-                    fill="#000"
-                  />
-                </g>
-              </svg>
+            <li className="breadcrumb-item">
+              <Link to={"/login"}>Login</Link>
             </li>
-            <li>
-              <Link to={'/login'}>Login</Link>
-            </li>
-            <li>
-              <svg
-                className="icon icon-breadcrumb"
-                width="64"
-                height="64"
-                viewBox="0 0 64 64"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g opacity="0.4">
-                  <path
-                    d="M25.9375 8.5625L23.0625 11.4375L43.625 32L23.0625 52.5625L25.9375 55.4375L47.9375 33.4375L49.3125 32L47.9375 30.5625L25.9375 8.5625Z"
-                    fill="#000"
-                  />
-                </g>
-              </svg>
-            </li>
-            <li>Register As Merchant</li>
+            <li className="breadcrumb-item active">Register As Merchant</li>
           </ul>
         </div>
       </div>
-      {/* <!-- breadcrumb end --> */}
 
       <main id="MainContent" className="content-for-layout">
         <div className="login-page mt-100">
           <div className="container">
-            <form action="#" className="login-form mx-auto" onSubmit={handleSubmit}>
+            <form
+              action="#"
+              className="login-form-register mx-auto"
+              onSubmit={handleSubmit}
+            >
               <div className="section-header mb-3">
                 <h2 className="section-heading customerreghead text-center">
                   Register As Merchant
                 </h2>
               </div>
               <div className="row">
-
                 <div className="col-md-6 col-12 form-group">
                   <fieldset>
-                    <label className="label label-heading mb-2">User Name</label>
+                    <label className="label label-heading mb-2">
+                      User Name
+                    </label>
                     <input
                       type="text"
                       name="userName"
@@ -175,7 +140,9 @@ function RegisterAsMerchant() {
 
                 <div className="col-md-6 col-12 form-group">
                   <fieldset>
-                    <label className="label label-heading mb-2">Shop Name</label>
+                    <label className="label label-heading mb-2">
+                      Shop Name
+                    </label>
                     <input
                       type="text"
                       name="shopName"
@@ -189,7 +156,9 @@ function RegisterAsMerchant() {
 
                 <div className="col-md-6 col-12 form-group">
                   <fieldset>
-                    <label className="label label-heading mb-2">Mobile Number</label>
+                    <label className="label label-heading mb-2">
+                      Mobile Number
+                    </label>
                     <input
                       type="text"
                       name="mobileNumber"
@@ -215,10 +184,11 @@ function RegisterAsMerchant() {
                   </fieldset>
                 </div>
 
-
-                <div className="col-md-6 col-6 form-group">
+                <div className="col-md-6 col-12 form-group">
                   <fieldset>
-                    <label className="label label-heading mb-2">Profile Image</label>
+                    <label className="label label-heading mb-2">
+                      Profile Image
+                    </label>
                     <input
                       type="file"
                       className="form-control mb-2"
@@ -227,11 +197,23 @@ function RegisterAsMerchant() {
                       }}
                     />
                   </fieldset>
+
+                  <div className="d-md-none d-block">
+                    {profileImage && (
+                      <img
+                        src={profileImage}
+                        alt="Profile"
+                        className="img-preview mt-2"
+                      />
+                    )}
+                  </div>
                 </div>
 
-                <div className="col-md-6 col-6 form-group">
+                <div className="col-md-6 col-12 form-group">
                   <fieldset>
-                    <label className="label label-heading mb-2">Shop Image</label>
+                    <label className="label label-heading mb-2">
+                      Shop Image
+                    </label>
                     <input
                       type="file"
                       className="form-control mb-2"
@@ -240,18 +222,27 @@ function RegisterAsMerchant() {
                       }}
                     />
                   </fieldset>
+
+                  <div className="d-md-none d-block">
+                    {shopImage && (
+                      <img
+                        src={shopImage}
+                        alt="Shop"
+                        className="img-preview mt-2"
+                      />
+                    )}
+                  </div>
                 </div>
-                <div className="col-md-6 col-6 form-group mb-5">
+                <div className="col-md-6 col-6 form-group d-md-block d-none">
                   {profileImage && (
                     <img
                       src={profileImage}
                       alt="Profile"
                       className="img-preview mt-2"
-                      
                     />
                   )}
                 </div>
-                <div className="col-md-6 col-6 form-group mb-5">
+                <div className="col-md-6 col-6 form-group d-md-block d-none">
                   {shopImage && (
                     <img
                       src={shopImage}

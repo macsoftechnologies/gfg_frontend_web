@@ -62,10 +62,10 @@ function ProductMerchants() {
   };
 
   useEffect(() => {
-    if(!localStorage.getItem("token")) {
+    if (!localStorage.getItem("token")) {
       navigate("/");
     }
-      getMerchants();
+    getMerchants();
   }, []);
 
   useEffect(() => {
@@ -102,27 +102,10 @@ function ProductMerchants() {
         <div className="breadcrumb">
           <div className="container">
             <ul className="list-unstyled d-flex align-items-center m-0">
-              <li>
-                <Link to={'/'}>Home</Link>
+              <li className="breadcrumb-item">
+                <Link to={"/"}>Home</Link>
               </li>
-              <li>
-                <svg
-                  className="icon icon-breadcrumb"
-                  width="64"
-                  height="64"
-                  viewBox="0 0 64 64"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g opacity="0.4">
-                    <path
-                      d="M25.9375 8.5625L23.0625 11.4375L43.625 32L23.0625 52.5625L25.9375 55.4375L47.9375 33.4375L49.3125 32L47.9375 30.5625L25.9375 8.5625Z"
-                      fill="#000"
-                    />
-                  </g>
-                </svg>
-              </li>
-              <li>Product Details</li>
+              <li className="breadcrumb-item active">Product Details</li>
             </ul>
           </div>
         </div>
@@ -131,9 +114,13 @@ function ProductMerchants() {
             <div className="container">
               <div className="row">
                 <div className="col-lg-6 col-md-6 col-12 locationText">
-                  <span className="locationTextSpan">Location</span> : {`${localStorage.getItem("Address")}`}
+                  <span className="locationTextSpan">Location</span> :{" "}
+                  {`${localStorage.getItem("Address")}`}
                 </div>
-                <div className="col-lg-4 col-md-4 col-6 mapselector location-mar" onClick={toggleModal}>
+                <div
+                  className="col-lg-4 col-md-4 col-6 mapselector location-mar"
+                  onClick={toggleModal}
+                >
                   <p className="mapText">Change Location Here</p>
                   <i
                     className="fa fa-map-marker mappointer"
@@ -144,13 +131,25 @@ function ProductMerchants() {
                 </div>
                 {isMerchant && (
                   <div className="col-lg-2 col-md-2 col-6 location-mar">
-                    <Link to={'/merchantproducts'}><button className="btn btn-primary">My Products</button></Link>
+                    <Link to={"/merchantproducts"}>
+                      <button className="btn btn-primary myProductsClass">
+                        My Products
+                      </button>
+                    </Link>
                   </div>
                 )}
-                <div className="col-lg-12 col-md-12 col-12 mt-5">
+                <div className="col-lg-12 col-md-12 col-12">
                   <div className="container">
-                    <h3>List of Products</h3>
-                    <div className="row mt-3">
+                    <div className="row">
+                      <h2 className="primary-color productMerchantHeading">
+                        List of <span>Products</span>
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-lg-12 col-md-12 col-12 d-md-block d-none">
+                  <div className="container">
+                    <div className="row mt-5">
                       <table className="table table-striped merchantProdsTable ">
                         <thead>
                           <tr>
@@ -159,6 +158,12 @@ function ProductMerchants() {
                             </th>
                             <th className="merchantsTableheading" scope="col">
                               Product Name
+                            </th>
+                            <th className="merchantsTableheading" scope="col">
+                              Product Image
+                            </th>
+                            <th className="merchantsTableheading" scope="col">
+                              Product Specifications
                             </th>
                             <th className="merchantsTableheading" scope="col">
                               Merchant Name
@@ -170,31 +175,48 @@ function ProductMerchants() {
                               Address
                             </th>
                             <th className="merchantsTableheading" scope="col">
-                              Product Image
-                            </th>
-                            <th className="merchantsTableheading" scope="col">
                               Product Price
                             </th>
                           </tr>
                         </thead>
                         <tbody>
-                          {filteredMerchants  &&
+                          {filteredMerchants &&
                             filteredMerchants.map((product, index) => (
                               <tr key={product._id}>
                                 <td>{index + 1}</td>
                                 <td>{product.adminProductId[0].productName}</td>
-                                <td>{product.userId[0].userName}</td>
-                                <td>{product.userId[0].mobileNumber}</td>
-                                <td>{product.userId[0].address}</td>
                                 <td>
                                   <img
-                                    src={`https://gfg.org.in/${product.adminProductId[0].productImage}`}
+                                    src={`https://api.gfg.org.in/${product.adminProductId[0].productImage}`}
                                     alt={product.userId[0].shopImage}
                                     width="150"
                                   />
                                 </td>
                                 <td>
-                                  <i className="fa fa-inr" aria-hidden="true"></i>
+                                  <ul>
+                                    {product?.adminProductId[0]
+                                      ?.productSpecifications &&
+                                      Object.entries(
+                                        product?.adminProductId[0]
+                                          ?.productSpecifications
+                                      ).map((specification, index) => (
+                                        <li className="productSpecificationLi">
+                                          <strong>{specification[0]}:</strong>{" "}
+                                          {specification[1]}
+                                        </li>
+                                      ))}
+                                  </ul>
+                                </td>
+                                <td>{product.userId[0].userName}</td>
+                                <td>{product.userId[0].mobileNumber}</td>
+                                <td className="merchantAddress">
+                                  {product.userId[0].address}
+                                </td>
+                                <td>
+                                  <i
+                                    className="fa fa-inr"
+                                    aria-hidden="true"
+                                  ></i>
                                   <span className="productPrice">
                                     {product.price}
                                   </span>
@@ -206,48 +228,128 @@ function ProductMerchants() {
                     </div>
                   </div>
                 </div>
+                {/* mobileresponsive accordian */}
+                <div class="d-md-none d-block mt-3">
+                  {filteredMerchants &&
+                    filteredMerchants.map((product, index) => (
+                      <div
+                        class="accordion mb-2"
+                        id={`accordionExample-${index}`}
+                        key={index}
+                      >
+                        <div class="accordion-item">
+                          <h2 class="accordion-header product_accordian_header" id={`heading-${index}`}>
+                            <button
+                              class="accordion-button collapsed product_accordian"
+                              type="button"
+                              data-bs-toggle="collapse"
+                              data-bs-target={`#collapse-${index}`}
+                              aria-expanded="true"
+                              aria-controls={`collapse-${index}`}
+                            >
+                              <div>
+                                <img
+                                  className="product_accord_image"
+                                  src={`https://api.gfg.org.in/${product.adminProductId[0].productImage}`}
+                                  alt={product.userId[0].shopImage}
+                                />
+                              </div>
+                              <div>{product.adminProductId[0].productName}</div>
+                              <div>
+                                <i className="fa fa-inr" aria-hidden="true"></i>
+                                <span className="productPrice">
+                                  {product.price}
+                                </span>
+                              </div>
+                            </button>
+                          </h2>
+                          <div
+                            id={`collapse-${index}`}
+                            class="accordion-collapse collapse"
+                            data-bs-parent={`#accordionExample-${index}`}
+                          >
+                            <div class="accordion-body productmerchantaccordbody">
+                              <div className="d-flex">
+                                <label>Product Specifications </label>
+                                <ul className="productmerchantaccordul">
+                                    {product?.adminProductId[0]
+                                      ?.productSpecifications &&
+                                      Object.entries(
+                                        product?.adminProductId[0]
+                                          ?.productSpecifications
+                                      ).map((specification, index) => (
+                                        <li className="productSpecificationLi">
+                                          <strong>{specification[0]}:</strong>{" "}
+                                          {specification[1]}
+                                        </li>
+                                      ))}
+                                  </ul>
+                              </div>
+                              <div className="d-flex">
+                                <label>Merchant Name </label>
+                                <p>{product.userId[0].userName}</p>
+                              </div>
+                              <div className="d-flex">
+                                <label>Contact Number </label>
+                                <p>{product.userId[0].mobileNumber}</p>
+                              </div>
+                              <div className="d-flex">
+                                <label>Address </label>
+                                <p>{product.userId[0].address}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                </div>
               </div>
             </div>
           </div>
         </main>
         <Modal isOpen={isOpen} toggle={toggleModal}>
-        <div className="modal-content">
-              <div className="modal-header">
-                <h1 className="modal-title fs-5" id="changeLocationModalLabel">
-                  Change Location
-                </h1>
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                  id="locationModalButton"
-                ></button>
-              </div>
-              <div className="modal-body">
-                <MapComponent
-                  initialPosition={[parseFloat(localStorage.getItem("latitude")), parseFloat(localStorage.getItem("longitude"))]}
-                  onPositionChange={handlePositionChange}
-                  apiKey="AIzaSyCiUU7Q5X1hTMRAJr0YJZPOxw40FfZcZp0"
-                />
-              </div>
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-danger"
-                  onClick={modalSubmit}
-                >
-                  Submit
-                </button>
-              </div>
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="changeLocationModalLabel">
+                Change Location
+              </h1>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                id="locationModalButton"
+                onClick={toggleModal}
+              ></button>
             </div>
+            <div className="modal-body">
+              <MapComponent
+                initialPosition={[
+                  parseFloat(localStorage.getItem("latitude")),
+                  parseFloat(localStorage.getItem("longitude")),
+                ]}
+                onPositionChange={handlePositionChange}
+                apiKey="AIzaSyCiUU7Q5X1hTMRAJr0YJZPOxw40FfZcZp0"
+              />
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+                onClick={toggleModal}
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={modalSubmit}
+              >
+                Submit
+              </button>
+            </div>
+          </div>
         </Modal>
         <div
           className="modal fade"
@@ -272,7 +374,10 @@ function ProductMerchants() {
               </div>
               <div className="modal-body">
                 <MapComponent
-                  initialPosition={[parseFloat(localStorage.getItem("latitude")), parseFloat(localStorage.getItem("longitude"))]}
+                  initialPosition={[
+                    parseFloat(localStorage.getItem("latitude")),
+                    parseFloat(localStorage.getItem("longitude")),
+                  ]}
                   onPositionChange={handlePositionChange}
                   apiKey="AIzaSyCiUU7Q5X1hTMRAJr0YJZPOxw40FfZcZp0"
                 />

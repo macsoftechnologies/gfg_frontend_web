@@ -56,3 +56,11 @@
     align-items: center;
     justify-content: center;
 }
+.shopImageClass{
+    width: 200px;
+    height: 200px;
+}
+.profileImage{
+    width: 200px !important;
+    height: 200px !important;
+}

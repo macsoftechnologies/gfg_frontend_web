@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
+import './MapComponent.css';
 
 const containerStyle = {
   width: '100%',
   height: '400px',
 };
 
-const libraries = ['marker'];
+const libraries = ['places'];
 
 const MapComponent = ({ initialPosition, onPositionChange, apiKey }) => {
   const [mapMarkerPosition, setMapMarkerPosition] = useState({
@@ -16,57 +17,25 @@ const MapComponent = ({ initialPosition, onPositionChange, apiKey }) => {
   const [address, setAddress] = useState('');
   const [map, setMap] = useState(null);
   const [marker, setMarker] = useState(null);
+  const autocompleteRef = useRef(null);
+  const inputRef = useRef(null);
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: apiKey,
     libraries,
   });
 
-  
-      // Example icon configuration
-      const faBusIcon = {
-        path: 'M16,0C7.16,0,0,7.16,0,16s16,32,16,32s16-14.36,16-16S24.84,0,16,0z M16,24c-3.31,0-6-2.69-6-6s2.69-6,6-6s6,2.69,6,6 S19.31,24,16,24z',
-        fillColor: '#0000ff',
-        fillOpacity: 1,
-        anchor: new window.google.maps.Point(8, 32), // Adjust anchor point as needed
-        strokeWeight: 1,
-        strokeColor: '#ffffff',
-        scale: 0.5,
-      };
-
-  useEffect(() => {
-    console.log('Initial position set:', initialPosition);
-    setMapMarkerPosition({
-      lat: initialPosition[0],
-      lng: initialPosition[1],
-    });
-  }, [initialPosition]);
-
-  useEffect(() => {
-    if (map && isLoaded && !marker) {
-      console.log('Creating new marker with custom icon');
-
-
-      const newMarker = new window.google.maps.Marker({
-        position: mapMarkerPosition,
-        map,
-        icon: faBusIcon,
-        title: 'FontAwesome SVG Marker',
-      });
-
-      newMarker.addListener('dragend', (e) => {
-        const lat = e.latLng.lat();
-        const lng = e.latLng.lng();
-        console.log('Marker dragged to:', lat, lng);
+  const handlePlaceChanged = () => {
+    const autocomplete = autocompleteRef.current;
+    if (autocomplete) {
+      const place = autocomplete.getPlace();
+      if (place.geometry) {
+        const lat = place.geometry.location.lat();
+        const lng = place.geometry.location.lng();
         updatePosition(lat, lng);
-      });
-
-      setMarker(newMarker);
-    } else if (marker) {
-      console.log('Updating marker position');
-      marker.setPosition(mapMarkerPosition);
+      }
     }
-  }, [map, marker, mapMarkerPosition, isLoaded]);
+  };
 
   const updatePosition = async (lat, lng) => {
     setMapMarkerPosition({ lat, lng });
@@ -74,7 +43,6 @@ const MapComponent = ({ initialPosition, onPositionChange, apiKey }) => {
       const address = await reverseGeocode(lat, lng);
       setAddress(address);
       onPositionChange(lat, lng, address);
-      console.log('Updated address:', address);
     } catch (error) {
       console.error('Error reverse geocoding:', error);
       setAddress('Failed to fetch address');
@@ -96,23 +64,70 @@ const MapComponent = ({ initialPosition, onPositionChange, apiKey }) => {
   const handleMapClick = (e) => {
     const lat = e.latLng.lat();
     const lng = e.latLng.lng();
-    console.log('Map clicked at:', lat, lng);
     updatePosition(lat, lng);
   };
+
+  useEffect(() => {
+    if (isLoaded && inputRef.current) {
+      const autocomplete = new window.google.maps.places.Autocomplete(inputRef.current);
+      autocompleteRef.current = autocomplete;
+      autocomplete.addListener('place_changed', handlePlaceChanged);
+
+      // Move the pac-container to the body or another high-level container
+      const pacContainer = document.querySelector('.pac-container');
+      if (pacContainer) {
+        document.body.appendChild(pacContainer); // Append to body to avoid modal overflow
+      }
+    }
+
+    return () => {
+      if (autocompleteRef.current) {
+        window.google.maps.event.clearInstanceListeners(autocompleteRef.current);
+      }
+    };
+  }, [isLoaded]);
+
+  useEffect(() => {
+    if (map && isLoaded && !marker) {
+      const newMarker = new window.google.maps.Marker({
+        position: mapMarkerPosition,
+        map,
+        draggable: true,
+      });
+
+      newMarker.addListener('dragend', (e) => {
+        const lat = e.latLng.lat();
+        const lng = e.latLng.lng();
+        updatePosition(lat, lng);
+      });
+
+      setMarker(newMarker);
+    } else if (marker) {
+      marker.setPosition(mapMarkerPosition);
+    }
+  }, [map, marker, mapMarkerPosition, isLoaded]);
 
   if (!isLoaded) return <div>Loading...</div>;
 
   return (
-    <GoogleMap
-      mapContainerStyle={containerStyle}
-      center={mapMarkerPosition}
-      zoom={15}
-      onClick={handleMapClick}
-      onLoad={(mapInstance) => setMap(mapInstance)}
-    >
-      {/* Marker with custom icon */}
-      {marker && <Marker position={mapMarkerPosition} map={map} icon={faBusIcon} title="FontAwesome SVG Marker" />}
-    </GoogleMap>
+    <div>
+      <input
+        type="text"
+        ref={inputRef}
+        placeholder="Search location"
+        className='locationInput'
+        style={{ width: '100%', padding: '10px', marginBottom: '10px' }}
+      />
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={mapMarkerPosition}
+        zoom={15}
+        onClick={handleMapClick}
+        onLoad={(mapInstance) => setMap(mapInstance)}
+      >
+        {marker && <Marker position={mapMarkerPosition} map={map} />}
+      </GoogleMap>
+    </div>
   );
 };
 

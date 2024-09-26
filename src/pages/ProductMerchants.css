@@ -1,49 +1,124 @@
-.product-details{
-    text-align: start !important;
+.product-details {
+  text-align: start !important;
 }
-.mapselector{
-    margin-bottom: 30px;
-    display: flex;
-    /* text-align: end; */
-    align-items: center;
-    justify-content: center;
+.mapselector {
+  margin-bottom: 30px;
+  display: flex;
+  /* text-align: end; */
+  align-items: center;
+  justify-content: center;
 }
-.mappointer{
-    font-size: 30px;
-    color: orange;
-    cursor: pointer;
+.mappointer {
+  font-size: 30px;
+  color: #e65f3a;
+  cursor: pointer;
 }
-.locationText{
-    font-size: 18px;
-    font-weight: 500;
+.locationText {
+  font-size: 18px;
+  font-weight: 500;
 }
-.mapText{
-    margin-bottom: 0px;
-    margin-right: 10px;
-    font-size: 18px;
-    font-weight: 500;
+.mapText {
+  margin-bottom: 0px;
+  margin-right: 10px;
+  font-size: 18px;
+  font-weight: 500;
 }
-.productPrice{
-    color: green;
-    font-size: 20px;
-    font-weight: 700;
+.productPrice {
+  color: green;
+  font-size: 20px;
+  font-weight: 700;
 }
-.merchantsTableheading{
-    color: aliceblue !important;
-    background-color: #00234D !important;
+.merchantsTableheading {
+  color: aliceblue !important;
+  background-color: #063263 !important;
 }
-.locationTextSpan{
-    color: orange !important;
+.locationTextSpan {
+  color: #e65f3a !important;
+}
+
+.myProductsClass:hover {
+  background-color: #e65f3a;
+}
+
+.merchantAddress {
+  width: 43px !important;
+}
+
+.productMerchantHeading {
+  margin-top: 40px;
+  letter-spacing: 2px !important;
+}
+
+.productMerchantHeading span {
+  color: #e65f3a;
+}
+
+.productMerchantHeading::after {
+  content: "";
+  border-top: 3px solid #063263;
+  display: block;
+  width: 2em;
+  margin: auto;
+}
+
+.product_accordian {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0px !important;
+}
+
+/* .product_accordian_header{
+  padding: 0px;
+} */
+.merchantNameAccord {
+  width: 50%;
+}
+.contactNumberAccord {
+  width: 50%;
+}
+
+.productmerchantaccordul {
+  padding-left: 0px;
+}
+
+.productmerchantaccordbody label {
+  text-align: start;
+  width: 60%;
+}
+
+.productmerchantaccordbody p {
+  text-align: start;
+}
+
+.product_accord_image {
+  width: 100px;
+}
+
+.product_accordian::after {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-left: 0px !important;
+  content: "";
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fillRule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-size: 1.25rem;
+  transition: transform 0.2s ease-in-out;
 }
 
 @media only screen and (max-width: 468px) and (min-width: 360px) {
-    .location-mar{
-        margin-top: 25px!important;
-    }
-    .merchantProdsTable{
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-    }
+  .location-mar {
+    margin-top: 25px !important;
   }
-
+  .merchantProdsTable {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .merchantAddress {
+    min-width: 20px !important;
+    max-width: 200px;
+    text-wrap: pretty;
+  }
+}

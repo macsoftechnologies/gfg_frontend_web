@@ -30,7 +30,7 @@ export const getAddress = (lat, lng) => {
 export const addMerchant = async (merchantdata) => {
   try {
     const response = await axios.post(
-      "https://gfg.org.in/user/merchantregister",
+      "https://api.gfg.org.in/user/merchantregister",
       merchantdata
     );
     return response;
@@ -42,7 +42,7 @@ export const addMerchant = async (merchantdata) => {
 export const addCustomer = async (customerData) => {
   try {
     const response = await axios.post(
-      "https://gfg.org.in/user/customerregister",
+      "https://api.gfg.org.in/user/customerregister",
       customerData
     );
     return response;
@@ -54,7 +54,7 @@ export const addCustomer = async (customerData) => {
 export const loginUser = async (userData) => {
   try {
     const response = await axios.post(
-      "https://gfg.org.in/user/loginuser",
+      "https://api.gfg.org.in/user/loginuser",
       userData
     );
     return response;
@@ -73,7 +73,7 @@ export const adminProducts = async () => {
       };
       
       const response = await axios.get(
-        "https://gfg.org.in/product/getproductslist",
+        "https://api.gfg.org.in/product/getproductslist",
         config
       );
   
@@ -93,7 +93,7 @@ export const addMerchantProduct = async (prodData) => {
       };
       
       const response = await axios.post(
-        "https://gfg.org.in/product/addmerchantproduct",
+        "https://api.gfg.org.in/product/addmerchantproduct",
         prodData,
         config
       );
@@ -114,7 +114,7 @@ export const getMerchantProductList = async (prodData) => {
       };
       
       const response = await axios.post(
-        "https://gfg.org.in/product/getmerchantproducts",
+        "https://api.gfg.org.in/product/getmerchantproducts",
         prodData,
         config
       );
@@ -135,7 +135,7 @@ export const editMerchantProduct = async (_id) => {
       };
       
       const response = await axios.post(
-        "https://gfg.org.in/product/editmerchantproduct",
+        "https://api.gfg.org.in/product/editmerchantproduct",
         _id,
         config
       );
@@ -156,7 +156,7 @@ export const removeMerchantProduct = async (_id) => {
       };
       
       const response = await axios.post(
-        "https://gfg.org.in/product/deletemerchantproduct",
+        "https://api.gfg.org.in/product/deletemerchantproduct",
         _id,
         config
       );
@@ -177,7 +177,7 @@ export const getMerchantProdById = async (data) => {
       };
       
       const response = await axios.post(
-        "https://gfg.org.in/product/getmerchantproductbyid",
+        "https://api.gfg.org.in/product/getmerchantproductbyid",
         data,
         config
       );
@@ -198,7 +198,7 @@ export const getAdminProdById = async (data) => {
       };
       
       const response = await axios.post(
-        "https://gfg.org.in/product/getproductbyid",
+        "https://api.gfg.org.in/product/getproductbyid",
         data,
         config
       );
@@ -219,7 +219,7 @@ export const getProductMerchants = async (data) => {
       };
       
       const response = await axios.post(
-        "https://gfg.org.in/product/searchproducts",
+        "https://api.gfg.org.in/product/searchproducts",
         data,
         config
       );
@@ -240,7 +240,7 @@ export const getUserDetailsById = async (data) => {
       };
       
       const response = await axios.post(
-        "https://gfg.org.in/user/getuserbyid",
+        "https://api.gfg.org.in/user/getuserbyid",
         data,
         config
       );
@@ -261,7 +261,7 @@ export const switchUser = async (data) => {
       };
       
       const response = await axios.post(
-        "https://gfg.org.in/user/switchuser",
+        "https://api.gfg.org.in/user/switchuser",
         data,
         config
       );
@@ -282,7 +282,7 @@ export const editUser = async (data) => {
       };
       
       const response = await axios.post(
-        "https://gfg.org.in/user/updateuser",
+        "https://api.gfg.org.in/user/updateuser",
         data,
         config
       );
@@ -303,7 +303,7 @@ export const searchAdminProducts = async (data) => {
       };
       
       const response = await axios.post(
-        "https://gfg.org.in/product/searchadminproducts",
+        "https://api.gfg.org.in/product/searchadminproducts",
         data,
         config
       );
@@ -317,7 +317,7 @@ export const searchAdminProducts = async (data) => {
 export const getCategories = async () => {
   try {
       const response = await axios.get(
-        "https://gfg.org.in/product/getcatogerieslist"
+        "https://api.gfg.org.in/product/getcatogerieslist"
       );
   
       return response.data;
@@ -336,7 +336,7 @@ export const advertisementsList = async (data) => {
       };
       
       const response = await axios.post(
-        "https://gfg.org.in/advertisements/getadsbylocation",
+        "https://api.gfg.org.in/advertisements/getadsbylocation",
         data,
         config
       );

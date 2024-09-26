@@ -4,13 +4,14 @@ import Footer from "../components/Footer";
 import { Link, useNavigate } from "react-router-dom";
 import { getUserDetailsById, switchUser } from "../services/service";
 import { toast, ToastContainer } from "react-toastify";
+import './SwitchCustomer.css';
 
 function SwitchCustomer() {
   const [imagePreview, setImagePreview] = useState(null);
   const [imagePreview1, setImagePreview1] = useState(null);
   const navigate = useNavigate();
   const [data, setData] = useState({
-    email: "",
+    mobileNumber: "",
     shopName: "",
     shopImage: null,
   });
@@ -52,7 +53,8 @@ function SwitchCustomer() {
         response.statusCode === 201
       ) {
         toast.success(`Success: ${response.message}`);
-        navigate('/profile')
+        navigate('/login')
+        localStorage.clear();
       } else {
         toast.error(`Error: ${response.message}`);
       }
@@ -71,7 +73,7 @@ function SwitchCustomer() {
       ) {
         setData({
           ...data,
-          email: response.data.email,
+          mobileNumber: response.data.mobileNumber,
         });
       } else {
         navigate("/login");
@@ -99,9 +101,17 @@ function SwitchCustomer() {
                 <li className="breadcrumb-item">
                   <Link to={'/'}>Home</Link>
                 </li>
-                <li className="breadcrumb-item active" aria-current="page">
+                <li className="breadcrumb-item" aria-current="page">
+                {/* <span>
+                    &nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i>
+                    &nbsp;
+                  </span> */}
                   <Link to={'/profile'}>User Profile</Link>
                 </li>
+                {/* <span>
+                    &nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i>
+                    &nbsp;
+                  </span> */}
                 <li className="breadcrumb-item active" aria-current="page">Switch To Merchant</li>
               </ol>
             </nav>
@@ -151,6 +161,9 @@ function SwitchCustomer() {
                         )}
                       </div>
                     </div>
+                  </div>
+                  <div className="col-12 switchLoginTextInfo mt-2">
+                    <p className="swichloginPara">* Please login after submitting the shop Details.</p>
                   </div>
                 <div className="col-12 mt-3">
                   <button

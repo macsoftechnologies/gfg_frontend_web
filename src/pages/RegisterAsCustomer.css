@@ -1,7 +1,7 @@
 .customerreghead{
     font-size: 30px;
 }
-.login-form{
+.login-form-register{
   max-width: 600px;
 }
 
@@ -12,6 +12,6 @@
 
 @media only screen and (max-width: 468px) and (min-width: 360px) {
   .customerreghead {
-      font-size: 16px!important;
+      font-size: 18px!important;
   }
 }

@@ -1,0 +1,23 @@
+.pac-container {
+  z-index: 1060; /* Higher than the modal */
+  position: absolute !important;
+  top: 100% !important;
+  /* bottom: 50%; */
+  width: auto !important;
+  max-width: 100%;
+  transform: translateY(100%);
+}
+
+.locationInput {
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  position: relative;
+}
+@media only screen and (max-width: 468px) and (min-width: 360px) {
+  .pac-container{
+    top: 28% !important;
+    width: 80% !important;
+  }
+}

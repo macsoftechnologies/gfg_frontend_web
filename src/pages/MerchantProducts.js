@@ -14,6 +14,7 @@ import {
 import $ from "jquery";
 import "./MerchantProducts.css";
 import { json, Link, useNavigate } from "react-router-dom";
+import { Modal } from "reactstrap";
 
 function MerchantProducts() {
   const userData = JSON.parse(localStorage.getItem("userData"));
@@ -36,6 +37,21 @@ function MerchantProducts() {
   const [loading, setLoading] = useState(true);
   const [searchText, setSearchText] = useState("");
   const [filteredMerchantProducts, setFilteredMerchantProducts] = useState([]);
+  const [isModeltrue, setisModeltrue] = useState(false);
+  const [isEditModeltrue, setisEditModeltrue] = useState(false);
+  const [isDeleteModeltrue, setisDeleteModeltrue] = useState(false);
+
+  const toggleModal = () => {
+    setisModeltrue(!isModeltrue);
+  };
+
+  const toggleEditModal = () => {
+    setisEditModeltrue(!isEditModeltrue);
+  };
+
+  const toggleDeleteModal = () => {
+    setisDeleteModeltrue(!isDeleteModeltrue);
+  };
 
   const handleSearch = (text) => {
     setSearchText(text);
@@ -133,12 +149,9 @@ function MerchantProducts() {
         (response && response.statusCode === 200) ||
         response.statusCode === 201
       ) {
-        toast.success(`Success: ${response.message}`, {
-          onClose: () => {
-            $("#deleteProductModal").hide();
-            window.location.reload();
-          },
-        });
+        toast.success(`Success: ${response.message}`);
+        toggleDeleteModal();
+        merchantProductsList();
       } else {
         toast.error(`Error: ${response.message}`);
       }
@@ -177,12 +190,9 @@ function MerchantProducts() {
         (response && response.statusCode === 200) ||
         response.statusCode === 201
       ) {
-        toast.success(`Success: ${response.message}`, {
-          onClose: () => {
-            $("#deleteProductModal").hide();
-            window.location.reload();
-          },
-        });
+        toast.success(`Success: ${response.message}`);
+        toggleEditModal();
+        merchantProductsList();
       } else {
         toast.error(`Error: ${response.message}`);
       }
@@ -195,12 +205,12 @@ function MerchantProducts() {
   const adminProductSelection = (product) => {
     console.log("product", product);
     setSelectedProduct(product);
-    $('#collapseExample').hide();
+    $("#collapseExample").hide();
   };
 
   const showCollapse = () => {
-    $('#collapseExample').show();
-  }
+    $("#collapseExample").show();
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -211,26 +221,23 @@ function MerchantProducts() {
         (response && response.statusCode === 200) ||
         response.statusCode === 201
       ) {
-        toast.success(`Success: ${response.message}`, {
-          onClose: () => {
-            $("#addProductModal").hide();
-            window.location.reload();
-            setSelectedProduct({});
-            setData({
-              adminProductId: "",
-              userId: "",
-              price: "",
-            });
-          },
+        toast.success(`Success: ${response.message}`);
+        setSelectedProduct({});
+        setData({
+          adminProductId: "",
+          userId: "",
+          price: "",
         });
+        toggleModal();
+        merchantProductsList();
       } else {
         setSelectedProduct({});
         setAddData({
           ...addData,
           adminProductId: "",
           userId: "",
-          price: ""
-        })
+          price: "",
+        });
         toast.error(`Error: ${response.message}`);
       }
     } catch (error) {
@@ -261,34 +268,16 @@ function MerchantProducts() {
       <div className="breadcrumb">
         <div className="container merchantprodsBreadcrumb">
           <ul className="list-unstyled d-flex align-items-center m-0">
-            <li>
+            <li className="breadcrumb-item">
               <Link to={"/"}>Home</Link>
             </li>
-            <li>
-              <svg
-                className="icon icon-breadcrumb"
-                width="64"
-                height="64"
-                viewBox="0 0 64 64"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g opacity="0.4">
-                  <path
-                    d="M25.9375 8.5625L23.0625 11.4375L43.625 32L23.0625 52.5625L25.9375 55.4375L47.9375 33.4375L49.3125 32L47.9375 30.5625L25.9375 8.5625Z"
-                    fill="#000"
-                  />
-                </g>
-              </svg>
-            </li>
-            <li>Merchant Products</li>
+            <li className="breadcrumb-item active">My Products</li>
           </ul>
 
           <button
-            className="btn btn-primary"
+            className="btn btn-primary addProductsClass"
             type="button"
-            data-bs-toggle="modal"
-            data-bs-target="#addProductModal"
+            onClick={toggleModal}
           >
             Add Product
           </button>
@@ -297,383 +286,478 @@ function MerchantProducts() {
       {/* <!-- breadcrumb end --> */}
 
       <div className="container">
-        <h5 className="m-5">List of Merchant Products</h5>
-        <table className="table table-striped merchantProdsTable">
-          <thead>
-            <tr>
-              <th className="merchantsTableheading" scope="col">
-                S.No
-              </th>
-              <th className="merchantsTableheading" scope="col">
-                Product Name
-              </th>
-              {/* <th className="merchantsTableheading" scope="col">Category Name</th> */}
-              <th className="merchantsTableheading" scope="col">
-                Product Image
-              </th>
-              <th className="merchantsTableheading" scope="col">
-                Product Specifications
-              </th>
-              <th className="merchantsTableheading" scope="col">
-                Price
-              </th>
-              <th className="merchantsTableheading" scope="col">
-                Actions
-              </th>
-            </tr>
-          </thead>
+        <div className="row">
+          <h2 className="primary-color merchantProductsHeading">
+            My <span>Products</span>
+          </h2>
+        </div>
+        <div className="d-md-block d-none">
+          <table className="table table-striped merchantProdsTable">
+            <thead>
+              <tr>
+                <th className="merchantsTableheading" scope="col">
+                  S.No
+                </th>
+                <th className="merchantsTableheading" scope="col">
+                  Product Name
+                </th>
+                {/* <th className="merchantsTableheading" scope="col">Category Name</th> */}
+                <th className="merchantsTableheading" scope="col">
+                  Product Image
+                </th>
+                <th className="merchantsTableheading" scope="col">
+                  Product Specifications
+                </th>
+                <th className="merchantsTableheading" scope="col">
+                  Price
+                </th>
+                <th className="merchantsTableheading" scope="col">
+                  Actions
+                </th>
+              </tr>
+            </thead>
 
-          <tbody>
-            {filteredMerchantProducts &&
-              filteredMerchantProducts.map((product, index) => (
-                <tr>
-                  <td>{index + 1}</td>
-                  <td>{product?.adminProductId[0]?.productName}</td>
-                  {/* <td>{product.adminProductId[0]?.categoryId[0]?.categoryName}</td> */}
-                  <td>
-                    <img
-                      src={`https://gfg.org.in/${product?.adminProductId[0]?.productImage}`}
-                      alt={product?.adminProductId[0]?.productName}
-                      width="150"
-                    />
-                  </td>
-                  <td>
-                    <ul>
-                      {product?.adminProductId[0]?.productSpecifications &&
-                        Object.entries(
-                          product?.adminProductId[0]?.productSpecifications
-                        ).map((specification, index) => (
-                          <li className="productSpecificationLi">
-                            <strong>{specification[0]}:</strong>{" "}
-                            {specification[1]}
-                          </li>
-                        ))}
-                    </ul>
-                  </td>
-                  <td>
-                    <i className="fa fa-inr" aria-hidden="true"></i>
-                    {product?.price}
-                  </td>
-                  <td>
-                    <button
-                      type="button"
-                      className="btn btn-primary merchantprodedit"
-                      onClick={() => {
-                        handleEditClick(product?._id);
-                        getMerchantProductById(product?._id);
-                      }}
-                      data-bs-toggle="modal"
-                      data-bs-target="#editProductModal"
-                    >
-                      <i className="fa fa-pencil" aria-hidden="true"></i>
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-danger merchantproddelete"
-                      onClick={() => {
-                        handleDeleteClick(product?._id);
-                      }}
-                      data-bs-toggle="modal"
-                      data-bs-target="#deleteProductModal"
-                    >
-                      <i className="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-      </div>
-
-      {/* edit product modal */}
-      <div
-        className="modal fade"
-        id="editProductModal"
-        tabIndex="-1"
-        aria-labelledby="editProductModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title fs-5" id="editProductModalLabel">
-                Edit Merchant Product
-              </h1>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              {editingProduct && (
-                <div>
-                  <div className="row">
-                    <div className="col-md-6 col-6 mt-3"><label><b>Name :</b></label></div>
-                    <div className="col-md-6 col-6 mt-3"><p>{editingProduct?.adminProductId[0]?.productName}</p></div>
-                    <div className="col-md-6 col-6 mt-3"><b>Product Image <span>:</span></b></div>
-                    <div className="col-md-6 col-6 mt-3"><img
-                      src={`https://gfg.org.in/${editingProduct?.adminProductId[0]?.productImage}`}
-                      alt={editingProduct?.adminProductId[0]?.productName}
-                      width="150"
-                    /></div>
-
-                    <div className="col-md-6 col-6 mt-3"><b>Product Specifications <span>:</span></b></div>
-                    <div className="col-md-6 col-6 mt-3">
+            <tbody>
+              {filteredMerchantProducts &&
+                filteredMerchantProducts.map((product, index) => (
+                  <tr>
+                    <td>{index + 1}</td>
+                    <td>{product?.adminProductId[0]?.productName}</td>
+                    {/* <td>{product.adminProductId[0]?.categoryId[0]?.categoryName}</td> */}
+                    <td>
+                      <img
+                        src={`https://api.gfg.org.in/${product?.adminProductId[0]?.productImage}`}
+                        alt={product?.adminProductId[0]?.productName}
+                        width="150"
+                      />
+                    </td>
+                    <td>
                       <ul>
-                        {editingProduct?.adminProductId[0]?.productSpecifications &&
+                        {product?.adminProductId[0]?.productSpecifications &&
                           Object.entries(
-                            editingProduct?.adminProductId[0]?.productSpecifications
+                            product?.adminProductId[0]?.productSpecifications
                           ).map((specification, index) => (
-                            <li className="productSpecificationLiEdit">
-                              <strong className="productEditSpecul">
-                                {specification[0]}:
-                              </strong>{" "}
+                            <li className="productSpecificationLi">
+                              <strong>{specification[0]}:</strong>{" "}
                               {specification[1]}
                             </li>
                           ))}
                       </ul>
+                    </td>
+                    <td>
+                      <i className="fa fa-inr" aria-hidden="true"></i>
+                      {product?.price}
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        className="btn btn-primary merchantprodedit"
+                        onClick={() => {
+                          handleEditClick(product?._id);
+                          getMerchantProductById(product?._id);
+                          toggleEditModal();
+                        }}
+                      >
+                        <i className="fa fa-pencil" aria-hidden="true"></i>
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-danger merchantproddelete"
+                        onClick={() => {
+                          handleDeleteClick(product?._id);
+                          toggleDeleteModal();
+                        }}
+                      >
+                        <i className="fa fa-trash" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+        {/* mobileresponsive accordian */}
+        <div class="d-md-none d-block mt-3">
+          {filteredMerchantProducts &&
+            filteredMerchantProducts.map((product, index) => (
+              <div
+                class="accordion mb-2"
+                id={`accordionExample-${index}`}
+                key={index}
+              >
+                <div class="accordion-item">
+                  <h2
+                    class="accordion-header product_accordian_header"
+                    id={`heading-${index}`}
+                  >
+                    <button
+                      class="accordion-button collapsed product_accordian"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target={`#collapse-${index}`}
+                      aria-expanded="true"
+                      aria-controls={`collapse-${index}`}
+                    >
+                      <div>
+                        <img
+                          className="product_accord_image"
+                          src={`https://api.gfg.org.in/${product.adminProductId[0].productImage}`}
+                          alt={product.userId[0].shopImage}
+                        />
+                      </div>
+                      <div>{product.adminProductId[0].productName}</div>
+                      <div>
+                        <div>
+                          <i className="fa fa-inr" aria-hidden="true"></i>
+                          <span className="productPrice">{product.price}</span>
+                        </div>
+                      </div>
+                    </button>
+                  </h2>
+                  <div
+                    id={`collapse-${index}`}
+                    class="accordion-collapse collapse"
+                    data-bs-parent={`#accordionExample-${index}`}
+                  >
+                    <div class="accordion-body merchantproductsaccordbody">
+                      <div>
+                        <label>Product Specifications </label>
+                        <ul className="productmerchantaccordul">
+                          {product?.adminProductId[0]?.productSpecifications &&
+                            Object.entries(
+                              product?.adminProductId[0]?.productSpecifications
+                            ).map((specification, index) => (
+                              <li className="productSpecificationLi">
+                                <strong>{specification[0]}:</strong>{" "}
+                                {specification[1]}
+                              </li>
+                            ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <div>
+                          <button
+                            type="button"
+                            className="btn btn-primary merchantprodedit"
+                            onClick={() => {
+                              handleEditClick(product?._id);
+                              getMerchantProductById(product?._id);
+                              toggleEditModal();
+                            }}
+                          >
+                            <i className="fa fa-pencil" aria-hidden="true"></i>
+                          </button>
+                          <button
+                            type="button"
+                            className="btn btn-danger merchantproddelete"
+                            onClick={() => {
+                              handleDeleteClick(product?._id);
+                              toggleDeleteModal();
+                            }}
+                          >
+                            <i className="fa fa-trash" aria-hidden="true"></i>
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              )}
-              <div className="row">
-                <div className="col-md-6 col-6 mt-3"><b>Product Price :</b></div>
-                <div className="col-md-6 col-6 mt-3 price-edit">
-                  <i className="fa fa-inr" aria-hidden="true"></i>
-                  <input
-                    type="text"
-                    placeholder="please enter price"
-                    className="editPriceInput"
-                    id="price"
-                    name="price"
-                    value={data.price}
-                    onChange={handleChange}
-                  />
-                </div>
               </div>
-
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button
-                type="button"
-                className="btn btn-danger"
-                onClick={editmerchantprod}
-              >
-                Submit
-              </button>
-            </div>
-          </div>
+            ))}
         </div>
       </div>
 
-      {/* delete product modal */}
-      <div
-        className="modal fade"
-        id="deleteProductModal"
-        tabIndex="-1"
-        aria-labelledby="deleteProductModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title fs-5" id="deleteProductModalLabel">
-                Delete Merchant Product
-              </h1>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              <p>Are you sure to delete this product?</p>
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button
-                type="button"
-                className="btn btn-danger"
-                onClick={deleteMerchantProd}
-              >
-                Delete
-              </button>
-            </div>
+      {/* edit product modal */}
+      <Modal isOpen={isEditModeltrue} toggle={toggleEditModal}>
+        <div className="modal-content">
+          <div className="modal-header">
+            <h1 className="modal-title fs-5" id="editProductModalLabel">
+              Edit Merchant Product
+            </h1>
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              onClick={toggleEditModal}
+            ></button>
           </div>
-        </div>
-      </div>
+          <div className="modal-body">
+            {editingProduct && (
+              <div>
+                <div className="row">
+                  <div className="col-md-6 col-6 mt-3">
+                    <label>
+                      <b>Name</b>
+                    </label>
+                  </div>
+                  <div className="col-md-6 col-6 mt-3">
+                    <p>{editingProduct?.adminProductId[0]?.productName}</p>
+                  </div>
+                  <div className="col-md-6 col-6 mt-3">
+                    <b>Product Image</b>
+                  </div>
+                  <div className="col-md-6 col-6 mt-3">
+                    <img
+                      src={`https://api.gfg.org.in/${editingProduct?.adminProductId[0]?.productImage}`}
+                      alt={editingProduct?.adminProductId[0]?.productName}
+                      width="150"
+                    />
+                  </div>
 
-      {/* addmerchantproduct modal */}
-      <div
-        className="modal fade"
-        id="addProductModal"
-        tabIndex="-1"
-        aria-labelledby="addProductModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title fs-5" id="addProductModalLabel">
-                Add Product for Sale
-              </h1>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              <div className="dropdown-center mb-2">
-                <p class="d-inline-flex gap-1">
-                  <a
-                    class="btn btn-primary"
-                    data-bs-toggle="collapse"
-                    href="#collapseExample"
-                    role="button"
-                    aria-expanded="false"
-                    aria-controls="collapseExample"
-                    onClick={() => showCollapse()}
-                  >
-                    Select Product
-                  </a>
-                </p>
-                <div class="collapse" id="collapseExample">
-                  <div class="card card-body">
-                    <table className="table table-dark">
-                      <thead>
-                        <tr>
-                          <td>ProductName</td>
-                          <td>ProductImage</td>
-                          <td>Action</td>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {productsData &&
-                          productsData.map((product) => (
-                            <tr>
-                              <td>{product.productName}</td>
-                              <td>
-                                <img
-                                  src={`https://gfg.org.in/${product.productImage}`}
-                                />
-                              </td>
-                              <td>
-                                <button
-                                  type="button"
-                                  className="btn btn-primary"
-                                  onClick={() => adminProductSelection(product)}
-                                >
-                                  Select
-                                </button>
-                              </td>
-                            </tr>
-                          ))}
-                      </tbody>
-                    </table>
+                  <div className="col-md-6 col-6 mt-3">
+                    <b>Product Specifications</b>
+                  </div>
+                  <div className="col-md-6 col-6 mt-3">
+                    <ul>
+                      {editingProduct?.adminProductId[0]
+                        ?.productSpecifications &&
+                        Object.entries(
+                          editingProduct?.adminProductId[0]
+                            ?.productSpecifications
+                        ).map((specification, index) => (
+                          <li className="productSpecificationLiEdit">
+                            <strong className="productEditSpecul">
+                              {specification[0]}:
+                            </strong>{" "}
+                            {specification[1]}
+                          </li>
+                        ))}
+                    </ul>
                   </div>
                 </div>
               </div>
+            )}
+            <div className="row">
+              <div className="col-md-6 col-6 mt-3">
+                <b>Product Price</b>
+              </div>
+              <div className="col-md-6 col-6 mt-3 price-edit">
+                <i className="fa fa-inr" aria-hidden="true"></i>
+                <input
+                  type="text"
+                  placeholder="please enter price"
+                  className="editPriceInput"
+                  id="price"
+                  name="price"
+                  value={data.price}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="modal-footer">
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={toggleEditModal}
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={editmerchantprod}
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </Modal>
 
-              <div className="row">
-                <div className="col-md-6 col-6 mt-3">
+      {/* delete product modal */}
+      <Modal isOpen={isDeleteModeltrue} toggle={toggleDeleteModal}>
+        <div className="modal-content">
+          <div className="modal-header">
+            <h1 className="modal-title fs-5" id="deleteProductModalLabel">
+              Delete Merchant Product
+            </h1>
+            <button
+              type="button"
+              className="btn-close"
+              onClick={toggleDeleteModal}
+            ></button>
+          </div>
+          <div className="modal-body">
+            <p>Are you sure to delete this product?</p>
+          </div>
+          <div className="modal-footer">
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={toggleDeleteModal}
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={deleteMerchantProd}
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </Modal>
+
+      {/* addmerchantproduct modal */}
+      <Modal isOpen={isModeltrue} toggle={toggleModal}>
+        <div className="modal-content">
+          <div className="modal-header">
+            <h1 className="modal-title fs-5" id="addProductModalLabel">
+              Add Product for Sale
+            </h1>
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              onClick={toggleModal}
+            ></button>
+          </div>
+          <div className="modal-body">
+            <div className="dropdown-center dropdownButton mb-2">
+              <p class="d-inline-flex gap-1">
+                <a
+                  class="btn btn-primary"
+                  data-bs-toggle="collapse"
+                  href="#collapseExample"
+                  role="button"
+                  aria-expanded="false"
+                  aria-controls="collapseExample"
+                  onClick={() => showCollapse()}
+                >
+                  Select Product
+                </a>
+              </p>
+              <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                  <table className="table table-dark">
+                    <thead>
+                      <tr>
+                        <td>ProductName</td>
+                        <td>ProductImage</td>
+                        <td>Action</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {productsData &&
+                        productsData.map((product) => (
+                          <tr>
+                            <td>{product.productName}</td>
+                            <td>
+                              <img
+                                src={`https://api.gfg.org.in/${product.productImage}`}
+                              />
+                            </td>
+                            <td>
+                              <button
+                                type="button"
+                                className="btn btn-primary"
+                                onClick={() => adminProductSelection(product)}
+                              >
+                                Select
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-6 col-6 mt-3">
+                <label
+                  for="productFormInput1"
+                  className="form-label productFormInput1"
+                >
+                  <b> Selected Product Image</b>
+                </label>
+              </div>
+              <div className="col-md-6 col-6 mt-3">
+                <img
+                  style={{ width: "150px", height: "150px" }}
+                  className="selectedImage"
+                  src={`https://api.gfg.org.in/${selectedProduct.productImage}`}
+                />
+              </div>
+              <div className="col-md-6 col-7 mt-3">
+                <b>
+                  {" "}
                   <label
                     for="productFormInput1"
                     className="form-label productFormInput1"
                   >
-                    <b> Selected Product Image :</b>
+                    Selected Product Name
                   </label>
-                </div>
-                <div className="col-md-6 col-6 mt-3">
-                  <img
-                    style={{ width: "150px", height: "150px" }}
-                    className="selectedImage"
-                    src={`https://gfg.org.in/${selectedProduct.productImage}`}
-                  />
-                </div>
-                <div className="col-md-6 col-7 mt-3">
-                  <b>  <label
-                    for="productFormInput1"
-                    className="form-label productFormInput1"
-                  >
-                    Selcted Product Name :
-                  </label></b>
-                </div>
-                <div className="col-md-6 col-5 mt-3">
-                  <p className="mb-0">{selectedProduct.productName}</p>
-                </div>
-                <div className="col-md-6 col-6 mt-3">
-                  <label><b>ProductSpecifications :</b></label>
-                </div>
-                <div className="col-md-6 col-6 mt-3">
-                  <ul>
-                    {selectedProduct.productSpecifications &&
-                      Object.entries(selectedProduct.productSpecifications).map(
-                        (specification, index) => (
-                          <li>
-                            <strong>{specification[0]}:</strong>{" "}
-                            {specification[1]}
-                          </li>
-                        )
-                      )}
-                  </ul>
-                </div>
-                <div className="col-md-6 col-6 mt-3"><b><label for="price" className="form-label productFormInput1">
-                  Price :
-                </label></b></div>
-                <div className="col-md-6 form-group price-edit col-6 mt-3">
-                  <i className="fa fa-inr " aria-hidden="true"></i>
-                  <input
-                    type="text"
-                    className="productpriceInput form-control"
-                    id="price"
-                    name="price"
-                    placeholder="enter your product price"
-                    value={addData.price}
-                    onChange={handleChange}
-                    
-                  />
-                </div>
-
+                </b>
               </div>
-
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={handleSubmit}
-              >
-                Add
-              </button>
+              <div className="col-md-6 col-5 mt-3">
+                <p className="mb-0 selectedProductName">
+                  {selectedProduct.productName}
+                </p>
+              </div>
+              <div className="col-md-6 col-6 mt-3">
+                <label>
+                  <b>Product Specifications</b>
+                </label>
+              </div>
+              <div className="col-md-6 col-6 mt-3">
+                <ul>
+                  {selectedProduct.productSpecifications &&
+                    Object.entries(selectedProduct.productSpecifications).map(
+                      (specification, index) => (
+                        <li>
+                          <strong>{specification[0]}:</strong>{" "}
+                          {specification[1]}
+                        </li>
+                      )
+                    )}
+                </ul>
+              </div>
+              <div className="col-md-6 col-6 mt-3">
+                <b>
+                  <label for="price" className="form-label productFormInput1">
+                    Price
+                  </label>
+                </b>
+              </div>
+              <div className="col-md-6 form-group price-edit col-6 mt-3">
+                <i className="fa fa-inr mr-2" aria-hidden="true"></i>
+                <input
+                  type="text"
+                  className="productpriceInput form-control"
+                  id="price"
+                  name="price"
+                  placeholder="enter price"
+                  value={addData.price}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
           </div>
+          <div className="modal-footer">
+            <button
+              type="button"
+              className="btn btn-secondary"
+              data-bs-dismiss="modal"
+              onClick={toggleModal}
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={handleSubmit}
+            >
+              Add
+            </button>
+          </div>
         </div>
-      </div>
+      </Modal>
+
       <Footer />
       <ToastContainer />
     </div>
