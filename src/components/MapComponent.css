@@ -1,23 +1,25 @@
+.mapContainer {
+  position: relative; /* Ensure child elements are positioned relative to this */
+  width: 100%;
+  height: 400px;
+}
+
 .pac-container {
-  z-index: 1060; /* Higher than the modal */
-  position: absolute !important;
-  top: 100% !important;
-  /* bottom: 50%; */
-  width: auto !important;
-  max-width: 100%;
-  transform: translateY(100%);
+  z-index: 1060; /* Ensures it’s above other elements */
+  position: absolute !important; /* Relative to the input field */
+  /* width: 100% !important; Make the suggestion box take full width of the input */
+  max-width: none !important; /* Ensure width constraints are removed */
 }
 
 .locationInput {
   width: 100%;
   padding: 10px;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  position: relative;
+  margin-bottom: 10px;
+  z-index: 1000; /* Ensure it’s above map elements */
 }
+
 @media only screen and (max-width: 468px) and (min-width: 360px) {
-  .pac-container{
-    top: 28% !important;
-    width: 80% !important;
+  .pac-container {
+    width: 80% !important; /* Adjust width for mobile devices */
   }
 }

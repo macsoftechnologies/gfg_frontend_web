@@ -72,20 +72,24 @@ const MapComponent = ({ initialPosition, onPositionChange, apiKey }) => {
       const autocomplete = new window.google.maps.places.Autocomplete(inputRef.current);
       autocompleteRef.current = autocomplete;
       autocomplete.addListener('place_changed', handlePlaceChanged);
-
-      // Move the pac-container to the body or another high-level container
-      const pacContainer = document.querySelector('.pac-container');
+      
+      // Remove this block to prevent moving the pac-container
+      // Move pac-container to body and adjust z-index
+      /* const pacContainer = document.querySelector('.pac-container');
       if (pacContainer) {
-        document.body.appendChild(pacContainer); // Append to body to avoid modal overflow
-      }
+        document.body.appendChild(pacContainer);
+        pacContainer.style.zIndex = '1060'; // Set a higher z-index
+      } */
     }
-
+  
     return () => {
       if (autocompleteRef.current) {
         window.google.maps.event.clearInstanceListeners(autocompleteRef.current);
       }
     };
   }, [isLoaded]);
+  
+  
 
   useEffect(() => {
     if (map && isLoaded && !marker) {
