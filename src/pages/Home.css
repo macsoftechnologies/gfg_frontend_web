@@ -77,6 +77,14 @@ $card-transition: 0.5s ease-in-out; */
   font-family: "Mulish, sans";
 }
 
+.homecategoryClass {
+  background: url('./homeBackground.jpg');
+  background-attachment: fixed;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .ourProdsClass span {
   color: #e65f3a;
 }
@@ -225,7 +233,7 @@ $card-transition: 0.5s ease-in-out; */
   .categoriesImageWrapper {
     background: #063263;
   }
-  .categoriesRow{
+  .categoriesRow {
     display: flex;
     align-items: center;
     justify-content: center;

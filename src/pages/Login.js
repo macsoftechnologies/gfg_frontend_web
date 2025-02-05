@@ -3,9 +3,10 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { loginUser } from "../services/service";
+import { loginUser, sendLoginOTP } from "../services/service";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
+import { Button } from "reactstrap";
 
 function Login() {
     const navigate = useNavigate();
@@ -38,6 +39,24 @@ function Login() {
     } catch(error) {
         console.log("error", error);
         toast.error("Error: Login Failed");
+    }
+  }
+
+  const sendOTP = async () => {
+    try{
+        const loginData = {
+          mobileNumber: data.mobileNumber
+        }
+        const response = await sendLoginOTP(loginData);
+        console.log("response", response);
+        if((response) && ((response.statusCode === 200) || (response.statusCode === 201))) {
+            toast.success(`OTP sent Successfully`);
+        } else {
+            toast.error(`Error: OTP Validation failed`);
+        }
+    } catch(error) {
+        console.log("error", error);
+        toast.error("Error: OTP verification Failed");
     }
   }
 
@@ -83,6 +102,9 @@ function Login() {
                       onChange={handleChange}
                     />
                   </fieldset>
+                  <Button className="btn btn-primary" onClick={() => {
+                    sendOTP();
+                  }}>Send OTP</Button>
                 </div>
                 <div className="col-12 form-group">
                   <fieldset>

@@ -346,3 +346,16 @@ export const advertisementsList = async (data) => {
     throw error;
   }
 }
+
+export const sendLoginOTP = async (data) => {
+  try {
+      const response = await axios.post(
+        "https://api.gfg.org.in/user/sendotp",
+        data
+      );
+  
+      return response.data;
+  } catch (error) {
+    throw error;
+  }
+}

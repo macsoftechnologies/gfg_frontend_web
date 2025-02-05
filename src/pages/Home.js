@@ -103,7 +103,7 @@ function Home() {
 
       <main id="MainContent" className="content-for-layout">
         <div className="featured-collection overflow-hidden">
-          <div className="collection-tab-inner">
+          <div className="collection-tab-inner homecategoryClass">
             <div className="slidersDiv">
               {userToken && advertisements.length > 0 && (
                 <Slider
